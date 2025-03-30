@@ -36,79 +36,61 @@
   </style>
 
 <style>
-  .tag {
+  .tag-container {
+    margin-top: 5px;
+  }
+
+  .sr-tag {
     display: inline-block;
-    background-color: #a69bef;
+    background-color: #e9c46a; /* 밝은 노란색 */
     color: #333;
     border-radius: 8px;
     padding: 2px 8px;
     margin-right: 5px;
     font-size: 0.8rem;
   }
-  .dg-tag-container {
-    margin-top: 5px;
+
+  .multimodal-tag {
+    display: inline-block;
+    background-color: #2a9d8f; /* 청록색 */
+    color: #fff;
+    border-radius: 8px;
+    padding: 2px 8px;
+    margin-right: 5px;
+    font-size: 0.8rem;
+  }
+
+  .dg-tag {
+    display: inline-block;
+    background-color: #f4a261; /* 오렌지 */
+    color: #333;
+    border-radius: 8px;
+    padding: 2px 8px;
+    margin-right: 5px;
+    font-size: 0.8rem;
+  }
+
+  .har-tag {
+    display: inline-block;
+    background-color: #264653; /* 진한 남색 */
+    color: #fff;
+    border-radius: 8px;
+    padding: 2px 8px;
+    margin-right: 5px;
+    font-size: 0.8rem;
+  }
+
+  .theory-tag {
+    display: inline-block;
+    background-color: #ffcad4; /* 연한 분홍 */
+    color: #333;
+    border-radius: 8px;
+    padding: 2px 8px;
+    margin-right: 5px;
+    font-size: 0.8rem;
   }
 </style>
 
-<style>
-  .tag {
-    display: inline-block;
-    background-color: #8eeba7;
-    color: #333;
-    border-radius: 8px;
-    padding: 2px 8px;
-    margin-right: 5px;
-    font-size: 0.8rem;
-  }
-  .multimodal-tag-container {
-    margin-top: 5px;
-  }
-</style>
-
-<style>
-  .tag {
-    display: inline-block;
-    background-color: #d8f789;
-    color: #333;
-    border-radius: 8px;
-    padding: 2px 8px;
-    margin-right: 5px;
-    font-size: 0.8rem;
-  }
-  .sr-tag-container {
-    margin-top: 5px;
-  }
-</style>
-
-<style>
-  .tag {
-    display: inline-block;
-    background-color: #3956fc;
-    color: #333;
-    border-radius: 8px;
-    padding: 2px 8px;
-    margin-right: 5px;
-    font-size: 0.8rem;
-  }
-  .har-tag-container {
-    margin-top: 5px;
-  }
-</style>
-
-<style>
-  .tag {
-    display: inline-block;
-    background-color: #81ffff;
-    color: #333;
-    border-radius: 8px;
-    padding: 2px 8px;
-    margin-right: 5px;
-    font-size: 0.8rem;
-  }
-  .theory-tag-container {
-    margin-top: 5px;
-  }
-</style>
 
 
 </head>
@@ -196,8 +178,8 @@
           <a href="https://arxiv.org/abs/2503.13915" class="title">[C3] Unlocking the potential of unlabeled data in semi-supervised domain generalization</a><br>
           <div class="authors">Dongkwan Lee*, <span class="highlight_author">Kyomin Hwang*</span>, Nojun Kwak</div>
           <div class="venue">CVPR, 2025</div>
-          <div class="dg-tag-container">
-            <span class="tag">domain generalization/adaptation</span>
+          <div class="tag-container">
+            <span class="dg-tag">domain generalization/adaptation</span>
           </div>        
         </div>
 
@@ -205,8 +187,8 @@
           <a href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/d60e14c19cd6e0fc38556ad29ac8fbc9-Abstract-Conference.html" class="title">[C2] Deep Support Vectors</a><br>
           <div class="authors">JunHoo Lee, Hyunho Lee, <span class="highlight_author">Kyomin Hwang</span>, Nojun Kwak</div>
           <div class="venue">Neurips, 2024</div>
-          <div class="theory-tag-container">
-            <span class="tag">deep learning theory</span>
+          <div class="tag-container">
+            <span class="theory-tag">deep learning theory</span>
           </div>        
         </div>
 
@@ -214,16 +196,16 @@
           <a href="https://arxiv.org/abs/2404.15154" class="title">[W2] Do not think about pink elephant!</a><br>
           <div class="authors"><span class="highlight_author">Kyomin Hwang*</span>, Suyoung Kim*, JunHoo Lee*, Nojun Kwak</div>
           <div class="venue">Responsible Generative AI Workshop (ReGenAI) at CVPR, 2024</div>
-          <div class="multimodal-tag-container">
-            <span class="tag">multi-modal representation</span>
+          <div class="tag-container">
+            <span class="multimodal-tag">multi-modal representation</span>
           </div>        
         </div>
 
         <div class="publication">
           <a href="https://arxiv.org/abs/2403.01344" class="title">[P1] Mitigating the Bias in the Model for Continual Test-Time Adaptation</a><br>
           <div class="authors">Inseop Chung, <span class="highlight_author">Kyomin Hwang</span>, Jayeon Yoo, Nojun Kwak</div>
-          <div class="dg-tag-container">
-            <span class="tag">domain generalization/adaptation</span>
+          <div class="tag-container">
+            <span class="dg-tag">domain generalization/adaptation</span>
           </div>        
         </div>
 
@@ -231,16 +213,16 @@
           <a href="https://www.sciencedirect.com/science/article/abs/pii/S0952197623015208" class="title">[J1] Fusing bi-directional global–local features for single image super-resolution</a><br>
           <div class="authors"><span class="highlight_author">Kyomin Hwang*</span>, Gangjoon Yoon*, Jinjoo Song, Sangmin Yoon</div>
           <div class="venue">Engineering Applications of Artificial Intelligence, 2024</div>
-          <div class="sr-tag-container">
-            <span class="tag">super resolution</span>
+          <div class="tag-container">
+            <span class="sr-tag">super resolution</span>
           </div>        
         </div>
 
         <div class="publication">
           <a href="https://arxiv.org/abs/2309.01961" class="title">[W1] NICE: CVPR 2023 Challenge on Zero-shot Image Captioning</a><br>
           <div class="venue">NICE Workshop at CVPR, 2023</div>
-          <div class="multimodal-tag-container">
-            <span class="tag">multi-modal representation</span>
+          <div class="tag-container">
+            <span class="multimodal-tag">multi-modal representation</span>
           </div>        
         </div>
 
@@ -248,8 +230,8 @@
           <a href="https://ieeexplore.ieee.org/abstract/document/9333879" class="title">[C1] A Study of CNN-Based Human Behavior Recognition with Channel State Information</a><br>
           <div class="authors"><span class="highlight_author">Kyomin Hwang</span>, Sang-Chul Kim</div>
           <div class="venue">ICOIN, 2021</div>
-          <div class="har-tag-container">
-            <span class="tag">humman action recognition</span>
+          <div class="tag-container">
+            <span class="har-tag">humman action recognition</span>
           </div>        
         </div>
 

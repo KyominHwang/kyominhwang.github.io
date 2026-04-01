@@ -5,692 +5,806 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kyomin Hwang</title>
   <meta name="author" content="Kyomin Hwang">
-  <meta name="description" content="Kyomin Hwang — Ph.D. student at Seoul National University researching Trustworthy AI.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:           #f8f6f1;
-      --surface:      #ffffff;
-      --surface2:     #f2efea;
-      --text:         #1c1917;
-      --text-muted:   #6b6762;
-      --text-faint:   #a09d99;
-      --accent:       #1e3a5f;
-      --accent-mid:   #2d5f9e;
-      --accent-light: #e8f0fb;
-      --border:       #e3e0db;
-      --border-light: #eeebe6;
+      --bg: #faf9f7;
+      --surface: #ffffff;
+      --border: #e8e4de;
+      --border-hover: #c8c2b8;
+      --text-primary: #1a1816;
+      --text-secondary: #5a5650;
+      --text-muted: #9a948e;
+      --accent: #2d4a6e;
+      --accent-light: #e8eef5;
 
-      --tag-resp-bg:   #dbeafe; --tag-resp-text: #1e3a8a;
-      --tag-rob-bg:    #ffedd5; --tag-rob-text:  #9a3412;
-      --tag-xai-bg:    #fce7f3; --tag-xai-text:  #831843;
-      --tag-other-bg:  #f1f5f9; --tag-other-text: #334155;
-      --tag-med-bg:    #d1fae5; --tag-med-text:   #065f46;
-      --tag-ad-bg:     #fef9c3; --tag-ad-text:    #713f12;
-
-      --font-serif: 'Lora', Georgia, serif;
-      --font-sans:  'Plus Jakarta Sans', system-ui, sans-serif;
-      --max-w: 820px;
-      --nav-h: 0px;
+      --tag-privacy: #e8eef5;
+      --tag-privacy-text: #2d4a6e;
+      --tag-robust: #fef3e8;
+      --tag-robust-text: #8a4a0a;
+      --tag-xai: #f5ebe8;
+      --tag-xai-text: #7a3020;
+      --tag-other: #eef2ee;
+      --tag-other-text: #2a4a2a;
+      --tag-aix: #fdf0f8;
+      --tag-aix-text: #7a2a60;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text-primary);
       background: var(--bg);
-      color: var(--text);
-      font-family: var(--font-sans);
-      font-size: 15.5px;
-      line-height: 1.75;
-      -webkit-font-smoothing: antialiased;
     }
 
+    /* Layout */
+    .page-wrapper {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
 
+    /* Nav */
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(250, 249, 247, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      padding: 12px 0;
+    }
 
-    /* ── Layout ── */
-    .page { max-width: var(--max-w); margin: 0 auto; padding: 0 24px 80px; }
+    .nav-inner {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-    /* ── Hero ── */
+    .nav-name {
+      font-family: 'EB Garamond', serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--text-primary);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* Hero */
     .hero {
+      padding: 64px 0 40px;
       display: grid;
       grid-template-columns: 1fr 180px;
-      gap: 40px;
+      gap: 48px;
       align-items: start;
-      padding: 52px 0 44px;
     }
-    .hero-text {}
+
     .hero-name {
-      font-family: var(--font-serif);
-      font-size: 2.4rem;
-      font-weight: 600;
+      font-family: 'EB Garamond', serif;
+      font-size: 42px;
+      font-weight: 400;
+      line-height: 1.1;
       letter-spacing: -0.01em;
-      color: var(--accent);
-      line-height: 1.2;
       margin-bottom: 6px;
+      color: var(--text-primary);
     }
-    .hero-role {
-      font-size: 14px;
-      font-weight: 500;
+
+    .hero-title {
+      font-size: 13px;
+      font-weight: 400;
       color: var(--text-muted);
-      letter-spacing: 0.04em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
+
     .hero-bio {
       font-size: 15px;
-      color: var(--text);
-      line-height: 1.8;
-      max-width: 540px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
     }
-    .hero-bio p + p { margin-top: 10px; }
-    .hero-bio a { color: var(--accent-mid); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.15s; }
-    .hero-bio a:hover { border-color: var(--accent-mid); }
-    .hero-links {
+
+    .hero-bio a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+
+    .hero-bio a:hover { border-bottom-color: var(--accent); }
+
+    .hero-interests {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 24px;
+      margin-bottom: 28px;
     }
-    .hero-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
-      background: var(--surface);
+
+    .interest-chip {
+      font-size: 12px;
+      font-weight: 400;
+      padding: 4px 12px;
+      border-radius: 20px;
       border: 1px solid var(--border);
-      border-radius: 8px;
+      color: var(--text-secondary);
+      background: var(--surface);
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
       font-size: 13px;
       font-weight: 500;
-      color: var(--text);
+      color: var(--accent);
       text-decoration: none;
-      transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      transition: border-color 0.15s, box-shadow 0.15s;
     }
-    .hero-link:hover {
-      border-color: var(--accent-mid);
-      box-shadow: 0 2px 8px rgba(29,58,95,0.1);
-      transform: translateY(-1px);
+
+    .contact-link:hover {
+      border-color: var(--accent);
+      box-shadow: 0 2px 8px rgba(45, 74, 110, 0.08);
     }
+
     .hero-photo {
+      position: relative;
+    }
+
+    .hero-photo img {
+      width: 100%;
+      border-radius: 10px;
+      display: block;
+      border: 1px solid var(--border);
+      object-fit: cover;
+      aspect-ratio: 1;
+    }
+
+    /* Section */
+    section {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    /* News */
+    .news-list {
       display: flex;
       flex-direction: column;
-      align-items: center;
       gap: 0;
-      padding-top: 8px;
-    }
-    .hero-photo img {
-      width: 160px;
-      height: 160px;
-      border-radius: 16px;
-      object-fit: cover;
-      border: 3px solid var(--surface);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-    }
-    .hero-photo img:hover { transform: scale(1.03); }
-
-    /* ── Section ── */
-    section { padding-top: 12px; margin-bottom: 48px; }
-    .section-anchor { display: block; position: relative; top: calc(-1 * var(--nav-h) - 12px); visibility: hidden; }
-
-    .section-header {
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
-      margin-bottom: 24px;
-      padding-bottom: 12px;
-      border-bottom: 2px solid var(--accent);
-    }
-    .section-title {
-      font-family: var(--font-serif);
-      font-size: 1.35rem;
-      font-weight: 600;
-      color: var(--accent);
-      letter-spacing: -0.01em;
-    }
-    .section-note {
-      font-size: 12.5px;
-      color: var(--text-faint);
-      font-style: italic;
-    }
-
-    /* ── News ── */
-    .news-scroll {
       max-height: 280px;
       overflow-y: auto;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: var(--surface);
+      padding-right: 8px;
     }
-    .news-scroll::-webkit-scrollbar { width: 5px; }
-    .news-scroll::-webkit-scrollbar-track { background: transparent; }
-    .news-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    .news-list::-webkit-scrollbar { width: 4px; }
+    .news-list::-webkit-scrollbar-track { background: transparent; }
+    .news-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
     .news-item {
       display: grid;
       grid-template-columns: 90px 1fr;
-      gap: 12px;
-      padding: 12px 18px;
-      border-bottom: 1px solid var(--border-light);
-      align-items: start;
-      transition: background 0.15s;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: baseline;
     }
+
     .news-item:last-child { border-bottom: none; }
-    .news-item:hover { background: var(--surface2); }
+
     .news-date {
       font-size: 12px;
-      font-weight: 600;
-      color: var(--text-faint);
-      font-family: var(--font-sans);
-      letter-spacing: 0.04em;
-      padding-top: 2px;
+      font-weight: 400;
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
       white-space: nowrap;
     }
+
     .news-text {
       font-size: 14px;
-      color: var(--text);
-      line-height: 1.65;
+      color: var(--text-secondary);
+      line-height: 1.6;
     }
-    .news-text a { color: var(--accent-mid); text-decoration: none; font-weight: 500; }
-    .news-text a:hover { text-decoration: underline; }
 
-    /* ── Publications ── */
-    .pub-legend {
+    .news-text a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+
+    .news-text a:hover { border-bottom-color: var(--accent); }
+
+    /* Publications */
+    .pub-filters {
       display: flex;
-      flex-wrap: wrap;
       gap: 8px;
+      flex-wrap: wrap;
       margin-bottom: 24px;
     }
-    .pub-card {
-      background: var(--surface);
+
+    .pub-filter {
+      font-size: 12px;
+      font-weight: 400;
+      padding: 4px 12px;
+      border-radius: 20px;
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 18px 20px;
-      margin-bottom: 12px;
-      transition: box-shadow 0.15s, transform 0.1s;
+      background: var(--surface);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .pub-filter.active, .pub-filter:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .pub-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .pub-item {
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
       display: grid;
-      grid-template-columns: 44px 1fr;
-      gap: 14px;
+      grid-template-columns: 48px 1fr;
+      gap: 16px;
       align-items: start;
     }
-    .pub-card:hover {
-      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
-      transform: translateY(-1px);
-    }
-    .pub-type-badge {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      flex-shrink: 0;
-    }
-    .pub-type-C { background: #dbeafe; color: #1e3a8a; }
-    .pub-type-W { background: #fce7f3; color: #831843; }
-    .pub-type-J { background: #d1fae5; color: #065f46; }
-    .pub-type-P { background: #f1f5f9; color: #334155; }
 
-    .pub-content {}
+    .pub-item:last-child { border-bottom: none; }
+
+    .pub-badge {
+      font-size: 10px;
+      font-weight: 500;
+      padding: 3px 6px;
+      border-radius: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      text-align: center;
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+
     .pub-title {
-      font-size: 14.5px;
-      font-weight: 600;
-      color: var(--text);
+      font-family: 'EB Garamond', serif;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.4;
+      color: var(--text-primary);
       text-decoration: none;
-      line-height: 1.5;
       display: block;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
       transition: color 0.15s;
     }
-    .pub-title:hover { color: var(--accent-mid); }
+
+    .pub-title:hover { color: var(--accent); }
+
     .pub-authors {
       font-size: 13px;
       color: var(--text-muted);
-      margin-bottom: 4px;
-      line-height: 1.55;
+      margin-bottom: 2px;
     }
-    .pub-authors .me { font-weight: 600; color: var(--text); }
+
+    .pub-authors .me {
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
     .pub-venue {
       font-size: 13px;
       font-style: italic;
-      color: var(--accent-mid);
-      font-weight: 500;
+      color: var(--text-secondary);
       margin-bottom: 8px;
     }
-    .pub-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+    .pub-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
     .tag {
-      display: inline-block;
-      padding: 2px 9px;
-      border-radius: 20px;
-      font-size: 11.5px;
-      font-weight: 500;
-      letter-spacing: 0.02em;
+      font-size: 11px;
+      font-weight: 400;
+      padding: 2px 8px;
+      border-radius: 10px;
     }
-    .tag-resp      { background: var(--tag-resp-bg);  color: var(--tag-resp-text); }
-    .tag-rob       { background: var(--tag-rob-bg);   color: var(--tag-rob-text); }
-    .tag-xai       { background: var(--tag-xai-bg);   color: var(--tag-xai-text); }
-    .tag-other     { background: var(--tag-other-bg); color: var(--tag-other-text); }
-    .tag-med       { background: var(--tag-med-bg);   color: var(--tag-med-text); }
-    .tag-ad        { background: var(--tag-ad-bg);    color: var(--tag-ad-text); }
 
-    /* ── List sections (Awards, Challenge, Teaching) ── */
-    .list-section {}
+    .tag-privacy { background: var(--tag-privacy); color: var(--tag-privacy-text); }
+    .tag-robust { background: var(--tag-robust); color: var(--tag-robust-text); }
+    .tag-xai { background: var(--tag-xai); color: var(--tag-xai-text); }
+    .tag-other { background: var(--tag-other); color: var(--tag-other-text); }
+    .tag-aix { background: var(--tag-aix); color: var(--tag-aix-text); }
+
+    /* Awards / Challenge / Teaching */
+    .list-items {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
     .list-item {
-      display: grid;
-      grid-template-columns: 20px 1fr;
-      gap: 10px;
-      padding: 10px 14px;
-      border-radius: 8px;
-      margin-bottom: 4px;
-      transition: background 0.15s;
-      align-items: start;
-    }
-    .list-item:hover { background: var(--surface); }
-    .list-bullet {
-      color: var(--accent-mid);
-      font-size: 10px;
-      padding-top: 5px;
-      flex-shrink: 0;
-    }
-    .list-text {
-      font-size: 14.5px;
-      color: var(--text);
-      line-height: 1.65;
-    }
-    .list-text .year {
-      font-size: 12px;
-      color: var(--text-faint);
-      font-weight: 600;
-      letter-spacing: 0.04em;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.5;
     }
 
-    /* ── Footer ── */
+    .list-item:last-child { border-bottom: none; }
+
+    .list-item-year {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .list-item-title {
+      color: var(--text-primary);
+      font-weight: 400;
+    }
+
+    /* Footer */
     footer {
+      padding: 32px 0;
       border-top: 1px solid var(--border);
-      padding: 24px 0 0;
-      text-align: right;
-      font-size: 12.5px;
-      color: var(--text-faint);
-    }
-    footer a { color: var(--text-faint); text-decoration: none; }
-    footer a:hover { color: var(--accent-mid); }
-
-    /* ── Responsive ── */
-    @media (max-width: 620px) {
-      .hero { grid-template-columns: 1fr; }
-      .hero-photo { order: -1; align-items: flex-start; }
-      .hero-photo img { width: 120px; height: 120px; }
-      .hero-name { font-size: 1.9rem; }
-      .pub-card { grid-template-columns: 1fr; }
-      .pub-type-badge { display: none; }
+      text-align: center;
     }
 
-    /* ── Animation ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
+    footer p {
+      font-size: 12px;
+      color: var(--text-muted);
     }
-    .hero       { animation: fadeUp 0.5s ease both; }
-    section     { animation: fadeUp 0.5s ease both; }
-    section:nth-of-type(1) { animation-delay: 0.05s; }
-    section:nth-of-type(2) { animation-delay: 0.10s; }
-    section:nth-of-type(3) { animation-delay: 0.15s; }
-    section:nth-of-type(4) { animation-delay: 0.20s; }
-    section:nth-of-type(5) { animation-delay: 0.25s; }
+
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+    }
+
+    footer a:hover { color: var(--text-secondary); }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .hero { grid-template-columns: 1fr; gap: 32px; }
+      .hero-photo { order: -1; max-width: 140px; }
+      .hero-name { font-size: 32px; }
+      .two-col { grid-template-columns: 1fr; gap: 0; }
+      .pub-item { grid-template-columns: 1fr; }
+      .pub-badge { display: none; }
+      .nav-links { display: none; }
+    }
+
+    /* Hidden pub items */
+    .pub-item.hidden { display: none; }
   </style>
 </head>
 <body>
 
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-name">Kyomin Hwang</a>
+    <div class="nav-links">
+      <a href="#news">News</a>
+      <a href="#publications">Publications</a>
+      <a href="#honors">Honors</a>
+      <a href="#competitions">Competitions</a>
+      <a href="#teaching">Teaching</a>
+    </div>
+  </div>
+</nav>
 
-<div class="page">
+<main class="page-wrapper">
 
-  <!-- ── Hero ── -->
-  <span id="about" class="section-anchor"></span>
+  <!-- Hero -->
   <div class="hero">
-    <div class="hero-text">
+    <div>
       <h1 class="hero-name">Kyomin Hwang</h1>
-      <p class="hero-role">Ph.D. Student · Seoul National University</p>
-      <div class="hero-bio">
-        <p>
-          I am a Ph.D. student at <a href="https://en.snu.ac.kr">Seoul National University</a>,
-          researching deep learning under the supervision of Professor
-          <a href="http://mipal.snu.ac.kr/index.php/Nojun_Kwak">Nojun Kwak</a>.
-          Previously, I earned my bachelor's degree in Computer Science from
-          <a href="https://www.kookmin.ac.kr/user/index.do">Kookmin University</a>.
-        </p>
-        <p>
-          I am interested in advancing <strong>Trustworthy AI</strong>, with a particular focus on
-          privacy, robustness, and interpretability. Additionally, I actively explore interdisciplinary
-          applications to bridge AI with other scientific domains (e.g., AI&nbsp;+&nbsp;Psychology).
-        </p>
+      <p class="hero-title">Ph.D. Student &nbsp;·&nbsp; Seoul National University</p>
+
+      <p class="hero-bio">
+        I am a Ph.D. student at <a href="https://en.snu.ac.kr">Seoul National University</a>, advised by Professor <a href="http://mipal.snu.ac.kr/index.php/Nojun_Kwak">Nojun Kwak</a>. I received my B.S. in Computer Science from <a href="https://www.kookmin.ac.kr">Kookmin University</a>.
+      </p>
+      <p class="hero-bio">
+        My research focuses on <strong>Trustworthy AI</strong> — particularly privacy, robustness, and interpretability. I am also exploring interdisciplinary applications in other fields.
+      </p>
+
+      <div class="hero-interests">
+        <span class="interest-chip">Privacy &amp; Unlearning</span>
+        <span class="interest-chip">Robustness</span>
+        <span class="interest-chip">Interpretability</span>
+        <span class="interest-chip">AI + Psychology</span>
+        <span class="interest-chip">AI + Medicine</span>
       </div>
-      <div class="hero-links">
-        <a class="hero-link" href="mailto:kyomin98@snu.ac.kr">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:kyomin98@snu.ac.kr">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
           Email
         </a>
-        <a class="hero-link" href="https://scholar.google.com/citations?user=k4TQ414AAAAJ&hl=en" target="_blank" rel="noopener">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+        <a class="contact-link" href="https://scholar.google.com/citations?user=k4TQ414AAAAJ&hl=en" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
           Google Scholar
         </a>
-        <a class="hero-link" href="https://github.com/KyominHwang/" target="_blank" rel="noopener">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        <a class="contact-link" href="https://github.com/KyominHwang/" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
           GitHub
         </a>
       </div>
     </div>
+
     <div class="hero-photo">
-      <a href="image/profile.png">
-        <img src="image/profile.png" alt="Kyomin Hwang profile photo">
-      </a>
+      <img src="image/profile.png" alt="Kyomin Hwang">
     </div>
   </div>
 
-  <!-- ── News ── -->
-  <section>
-    <span id="news" class="section-anchor"></span>
-    <div class="section-header">
-      <h2 class="section-title">Recent News</h2>
-    </div>
-    <div class="news-scroll">
+  <!-- News -->
+  <section id="news">
+    <p class="section-label">Recent News</p>
+    <div class="news-list">
+
       <div class="news-item">
         <span class="news-date">Mar 2026</span>
-        <span class="news-text"><a href="https://arxiv.org/abs/2511.07842">One first-author paper</a> accepted at Clinical NLP @ LREC 2026.</span>
+        <span class="news-text"><a href="https://arxiv.org/abs/2503.13915">One first-author paper</a> accepted at Clinical NLP @ LREC 2026.</span>
       </div>
+
       <div class="news-item">
         <span class="news-date">Feb 2025</span>
         <span class="news-text"><a href="https://arxiv.org/abs/2503.13915">One first-author paper</a> accepted at CVPR 2025.</span>
       </div>
+
       <div class="news-item">
         <span class="news-date">Jun 2024</span>
         <span class="news-text">Joining Naver Cloud (Document Understanding) as a Research Scientist Intern.</span>
       </div>
+
       <div class="news-item">
         <span class="news-date">Mar 2024</span>
-        <span class="news-text"><a href="https://arxiv.org/abs/2404.15154">One first-author paper</a> accepted at Responsible Generative AI Workshop (ReGenAI) @ CVPR 2024.</span>
+        <span class="news-text"><a href="https://arxiv.org/abs/2404.15154">One first-author paper</a> accepted at Responsible GenAI Workshop (ReGenAI) @ CVPR 2024.</span>
       </div>
+
       <div class="news-item">
         <span class="news-date">Jan 2024</span>
         <span class="news-text"><a href="https://www.sciencedirect.com/science/article/abs/pii/S0952197623015208">One first-author paper</a> accepted at Engineering Applications of Artificial Intelligence.</span>
       </div>
+
       <div class="news-item">
         <span class="news-date">Dec 2022</span>
         <span class="news-text">Won the Participation Award at Software University AI Contest (IITP) as team leader.</span>
       </div>
+
       <div class="news-item">
         <span class="news-date">Nov 2021</span>
-        <span class="news-text">Won the Grand &amp; Special Prize at HAICON 2021 (NIS / NSR) as team leader.</span>
+        <span class="news-text">Won Grand &amp; Special Prize at HAICON 2021 (National Intelligence Service) as team leader.</span>
       </div>
+
     </div>
   </section>
 
-  <!-- ── Publications ── -->
-  <section>
-    <span id="publications" class="section-anchor"></span>
-    <div class="section-header">
-      <h2 class="section-title">Publications</h2>
-      <span class="section-note">* equal contribution &nbsp;·&nbsp; C = Conference &nbsp; W = Workshop &nbsp; J = Journal &nbsp; P = Preprint</span>
+  <!-- Publications -->
+  <section id="publications">
+    <p class="section-label">Publications &nbsp;<span style="font-weight:300;letter-spacing:0">— * equal contribution &nbsp;· C = Conference, W = Workshop, J = Journal, P = Preprint</span></p>
+
+    <div class="pub-filters">
+      <button class="pub-filter active" data-filter="all">All</button>
+      <button class="pub-filter" data-filter="privacy">Responsibility</button>
+      <button class="pub-filter" data-filter="robust">Robustness</button>
+      <button class="pub-filter" data-filter="xai">Interpretability</button>
+      <button class="pub-filter" data-filter="aix">AI + X</button>
+      <button class="pub-filter" data-filter="other">Other</button>
     </div>
 
-    <!-- W3 -->
-    <div class="pub-card">
-      <div class="pub-type-badge pub-type-W">W</div>
-      <div class="pub-content">
-        <a class="pub-title" href="https://arxiv.org/abs/2511.07842" target="_blank" rel="noopener">
-          [W3] Team MKC at MEDIQA-SYNUR 2026: Retrieval-Augmented Generation Based Nurse Observation Extraction
-        </a>
-        <p class="pub-authors"><span class="me">Kyomin Hwang</span>, Nojun Kwak</p>
-        <p class="pub-venue">Clinical NLP @ LREC, 2026</p>
-        <div class="pub-tags"><span class="tag tag-med">AI + Medical</span></div>
-      </div>
-    </div>
+    <div class="pub-list">
 
-    <!-- C4 -->
-    <div class="pub-card">
-      <div class="pub-type-badge pub-type-C">C</div>
-      <div class="pub-content">
-        <a class="pub-title" href="https://arxiv.org/abs/2511.07842" target="_blank" rel="noopener">
-          [C4] Modeling Persuasion Knowledge Activation through LLM-Based Simulation
-        </a>
-        <p class="pub-authors">Eunjin Anna Kim, Esther Thorson, <span class="me">Kyomin Hwang</span>, Hyeonjin Kim, Nojun Kwak</p>
-        <p class="pub-venue">ICA, 2026</p>
-        <div class="pub-tags"><span class="tag tag-ad">AI + Advertisement</span></div>
+      <div class="pub-item" data-tags="aix">
+        <span class="pub-badge">W3</span>
+        <div>
+          <a href="https://arxiv.org/abs/2511.07842" class="pub-title" target="_blank">Team MKC at MEDIQA-SYNUR 2026: Retrieval-Augmented Generation Based Nurse Observation Extraction</a>
+          <p class="pub-authors"><span class="me">Kyomin Hwang</span>, Nojun Kwak</p>
+          <p class="pub-venue">Clinical NLP @ LREC, 2026</p>
+          <div class="pub-tags"><span class="tag tag-aix">AI + Medical</span></div>
+        </div>
       </div>
-    </div>
 
-    <!-- P2 -->
-    <div class="pub-card">
-      <div class="pub-type-badge pub-type-P">P</div>
-      <div class="pub-content">
-        <a class="pub-title" href="https://arxiv.org/abs/2511.07842" target="_blank" rel="noopener">
-          [P2] Alignment-Aware Quantization for LLM Safety
-        </a>
-        <p class="pub-authors">Sunghyun Wee, Hyeonjin Kim, Suyoung Kim, <span class="me">Kyomin Hwang</span>, Nojun Kwak</p>
-        <p class="pub-venue">arXiv, 2025</p>
-        <div class="pub-tags"><span class="tag tag-resp">Responsibility</span></div>
+      <div class="pub-item" data-tags="aix">
+        <span class="pub-badge">C4</span>
+        <div>
+          <a href="https://arxiv.org/abs/2511.07842" class="pub-title" target="_blank">Modeling Persuasion Knowledge Activation through LLM-Based Simulation</a>
+          <p class="pub-authors">Eunjin Anna Kim, Esther Thorson, <span class="me">Kyomin Hwang</span>, Hyeonjin Kim, Nojun Kwak</p>
+          <p class="pub-venue">ICA, 2026</p>
+          <div class="pub-tags"><span class="tag tag-aix">AI + Advertisement</span></div>
+        </div>
       </div>
-    </div>
 
-    <!-- P1 -->
-    <div class="pub-card">
-      <div class="pub-type-badge pub-type-P">P</div>
-      <div class="pub-content">
-        <a class="pub-title" href="https://arxiv.org/abs/2510.23949" target="_blank" rel="noopener">
-          [P1] Uncovering the Potential Risks in Unlearning: Danger of English-only Unlearning in Multilingual LLMs
-        </a>
-        <p class="pub-authors"><span class="me">Kyomin Hwang*</span>, Hyeonjin Kim*, Seungyeon Kim, Sunghyun Wee, Nojun Kwak</p>
-        <p class="pub-venue">arXiv, 2025</p>
-        <div class="pub-tags"><span class="tag tag-resp">Responsibility</span></div>
+      <div class="pub-item" data-tags="privacy">
+        <span class="pub-badge">P2</span>
+        <div>
+          <a href="https://arxiv.org/abs/2511.07842" class="pub-title" target="_blank">Alignment-Aware Quantization for LLM Safety</a>
+          <p class="pub-authors">Sunghyun Wee, Hyeonjin Kim, Suyoung Kim, <span class="me">Kyomin Hwang</span>, Nojun Kwak</p>
+          <p class="pub-venue">arXiv, 2025</p>
+          <div class="pub-tags"><span class="tag tag-privacy">Responsibility</span></div>
+        </div>
       </div>
-    </div>
 
-    <!-- J2 -->
-    <div class="pub-card">
-      <div class="pub-type-badge pub-type-J">J</div>
-      <div class="pub-content">
-        <a class="pub-title" href="https://ieeexplore.ieee.org/abstract/document/11141419" target="_blank" rel="noopener">
-          [J2] Mitigating the Bias in the Model for Continual Test-Time Adaptation
-        </a>
-        <p class="pub-authors">Inseop Chung, <span class="me">Kyomin Hwang</span>, Jayeon Yoo, Nojun Kwak</p>
-        <p class="pub-venue">IEEE Access, 2025</p>
-        <div class="pub-tags"><span class="tag tag-rob">Robustness</span></div>
+      <div class="pub-item" data-tags="privacy">
+        <span class="pub-badge">P1</span>
+        <div>
+          <a href="https://arxiv.org/abs/2510.23949" class="pub-title" target="_blank">Uncovering the Potential Risks in Unlearning: Danger of English-only Unlearning in Multilingual LLMs</a>
+          <p class="pub-authors"><span class="me">Kyomin Hwang*</span>, Hyeonjin Kim*, Seungyeon Kim, Sunghyun Wee, Nojun Kwak</p>
+          <p class="pub-venue">arXiv, 2025</p>
+          <div class="pub-tags"><span class="tag tag-privacy">Responsibility</span></div>
+        </div>
       </div>
-    </div>
 
-    <!-- C3 -->
-    <div class="pub-card">
-      <div class="pub-type-badge pub-type-C">C</div>
-      <div class="pub-content">
-        <a class="pub-title" href="https://arxiv.org/abs/2503.13915" target="_blank" rel="noopener">
-          [C3] Unlocking the Potential of Unlabeled Data in Semi-Supervised Domain Generalization
-        </a>
-        <p class="pub-authors">Dongkwan Lee*, <span class="me">Kyomin Hwang*</span>, Nojun Kwak</p>
-        <p class="pub-venue">CVPR, 2025</p>
-        <div class="pub-tags"><span class="tag tag-rob">Robustness</span></div>
+      <div class="pub-item" data-tags="robust">
+        <span class="pub-badge">J2</span>
+        <div>
+          <a href="https://ieeexplore.ieee.org/abstract/document/11141419" class="pub-title" target="_blank">Mitigating the Bias in the Model for Continual Test-Time Adaptation</a>
+          <p class="pub-authors">Inseop Chung, <span class="me">Kyomin Hwang</span>, Jayeon Yoo, Nojun Kwak</p>
+          <p class="pub-venue">IEEE Access, 2025</p>
+          <div class="pub-tags"><span class="tag tag-robust">Robustness</span></div>
+        </div>
       </div>
-    </div>
 
-    <!-- C2 -->
-    <div class="pub-card">
-      <div class="pub-type-badge pub-type-C">C</div>
-      <div class="pub-content">
-        <a class="pub-title" href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/d60e14c19cd6e0fc38556ad29ac8fbc9-Abstract-Conference.html" target="_blank" rel="noopener">
-          [C2] Deep Support Vectors
-        </a>
-        <p class="pub-authors">JunHoo Lee, Hyunho Lee, <span class="me">Kyomin Hwang</span>, Nojun Kwak</p>
-        <p class="pub-venue">NeurIPS, 2024</p>
-        <div class="pub-tags"><span class="tag tag-xai">Interpretability</span></div>
+      <div class="pub-item" data-tags="robust">
+        <span class="pub-badge">C3</span>
+        <div>
+          <a href="https://arxiv.org/abs/2503.13915" class="pub-title" target="_blank">Unlocking the potential of unlabeled data in semi-supervised domain generalization</a>
+          <p class="pub-authors">Dongkwan Lee*, <span class="me">Kyomin Hwang*</span>, Nojun Kwak</p>
+          <p class="pub-venue">CVPR, 2025</p>
+          <div class="pub-tags"><span class="tag tag-robust">Robustness</span></div>
+        </div>
       </div>
-    </div>
 
-    <!-- W2 -->
-    <div class="pub-card">
-      <div class="pub-type-badge pub-type-W">W</div>
-      <div class="pub-content">
-        <a class="pub-title" href="https://arxiv.org/abs/2404.15154" target="_blank" rel="noopener">
-          [W2] Do not think about pink elephant!
-        </a>
-        <p class="pub-authors"><span class="me">Kyomin Hwang*</span>, Suyoung Kim*, JunHoo Lee*, Nojun Kwak</p>
-        <p class="pub-venue">Responsible Generative AI Workshop (ReGenAI) @ CVPR, 2024</p>
-        <div class="pub-tags"><span class="tag tag-other">Multi-modal</span></div>
+      <div class="pub-item" data-tags="xai">
+        <span class="pub-badge">C2</span>
+        <div>
+          <a href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/d60e14c19cd6e0fc38556ad29ac8fbc9-Abstract-Conference.html" class="pub-title" target="_blank">Deep Support Vectors</a>
+          <p class="pub-authors">JunHoo Lee, Hyunho Lee, <span class="me">Kyomin Hwang</span>, Nojun Kwak</p>
+          <p class="pub-venue">NeurIPS, 2024</p>
+          <div class="pub-tags"><span class="tag tag-xai">Interpretability</span></div>
+        </div>
       </div>
-    </div>
 
-    <!-- J1 -->
-    <div class="pub-card">
-      <div class="pub-type-badge pub-type-J">J</div>
-      <div class="pub-content">
-        <a class="pub-title" href="https://www.sciencedirect.com/science/article/abs/pii/S0952197623015208" target="_blank" rel="noopener">
-          [J1] Fusing Bi-Directional Global–Local Features for Single Image Super-Resolution
-        </a>
-        <p class="pub-authors"><span class="me">Kyomin Hwang*</span>, Gangjoon Yoon*, Jinjoo Song, Sangmin Yoon</p>
-        <p class="pub-venue">Engineering Applications of Artificial Intelligence, 2024</p>
-        <div class="pub-tags"><span class="tag tag-other">Super Resolution</span></div>
+      <div class="pub-item" data-tags="privacy">
+        <span class="pub-badge">W2</span>
+        <div>
+          <a href="https://arxiv.org/abs/2404.15154" class="pub-title" target="_blank">Do not think about pink elephant!</a>
+          <p class="pub-authors"><span class="me">Kyomin Hwang*</span>, Suyoung Kim*, JunHoo Lee*, Nojun Kwak</p>
+          <p class="pub-venue">Responsible GenAI Workshop (ReGenAI) @ CVPR, 2024</p>
+          <div class="pub-tags"><span class="tag tag-privacy">Responsibility</span></div>
+        </div>
       </div>
-    </div>
 
-    <!-- W1 -->
-    <div class="pub-card">
-      <div class="pub-type-badge pub-type-W">W</div>
-      <div class="pub-content">
-        <a class="pub-title" href="https://arxiv.org/abs/2309.01961" target="_blank" rel="noopener">
-          [W1] NICE: CVPR 2023 Challenge on Zero-shot Image Captioning
-        </a>
-        <p class="pub-authors">—</p>
-        <p class="pub-venue">NICE Workshop @ CVPR, 2023</p>
-        <div class="pub-tags"><span class="tag tag-other">Multi-modal</span></div>
+      <div class="pub-item" data-tags="other">
+        <span class="pub-badge">J1</span>
+        <div>
+          <a href="https://www.sciencedirect.com/science/article/abs/pii/S0952197623015208" class="pub-title" target="_blank">Fusing bi-directional global–local features for single image super-resolution</a>
+          <p class="pub-authors"><span class="me">Kyomin Hwang*</span>, Gangjoon Yoon*, Jinjoo Song, Sangmin Yoon</p>
+          <p class="pub-venue">Engineering Applications of Artificial Intelligence, 2024</p>
+          <div class="pub-tags"><span class="tag tag-other">Super Resolution</span></div>
+        </div>
       </div>
-    </div>
 
-    <!-- C1 -->
-    <div class="pub-card">
-      <div class="pub-type-badge pub-type-C">C</div>
-      <div class="pub-content">
-        <a class="pub-title" href="https://ieeexplore.ieee.org/abstract/document/9333879" target="_blank" rel="noopener">
-          [C1] A Study of CNN-Based Human Behavior Recognition with Channel State Information
-        </a>
-        <p class="pub-authors"><span class="me">Kyomin Hwang</span>, Sang-Chul Kim</p>
-        <p class="pub-venue">ICOIN, 2021</p>
-        <div class="pub-tags"><span class="tag tag-other">Human Action Recognition</span></div>
+      <div class="pub-item" data-tags="other">
+        <span class="pub-badge">W1</span>
+        <div>
+          <a href="https://arxiv.org/abs/2309.01961" class="pub-title" target="_blank">NICE: CVPR 2023 Challenge on Zero-shot Image Captioning</a>
+          <p class="pub-authors">Challenge Report (Team Contribution)</p>
+          <p class="pub-venue">NICE Workshop @ CVPR, 2023</p>
+          <div class="pub-tags"><span class="tag tag-other">Multi-modal</span></div>
+        </div>
       </div>
+
+      <div class="pub-item" data-tags="other">
+        <span class="pub-badge">C1</span>
+        <div>
+          <a href="https://ieeexplore.ieee.org/abstract/document/9333879" class="pub-title" target="_blank">A Study of CNN-Based Human Behavior Recognition with Channel State Information</a>
+          <p class="pub-authors"><span class="me">Kyomin Hwang</span>, Sang-Chul Kim</p>
+          <p class="pub-venue">ICOIN, 2021</p>
+          <div class="pub-tags"><span class="tag tag-other">Human Action Recognition</span></div>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- ── Honors & Awards ── -->
-  <section>
-    <span id="honors" class="section-anchor"></span>
-    <div class="section-header">
-      <h2 class="section-title">Honors &amp; Awards</h2>
-    </div>
-    <div class="list-section">
-      <div class="list-item">
-        <span class="list-bullet">◆</span>
-        <span class="list-text">Samsung Electronics Ph.D. Student Sponsorship Program <span class="year">(Sep. 2025 ~)</span></span>
-      </div>
-      <div class="list-item">
-        <span class="list-bullet">◆</span>
-        <span class="list-text">Software University AI Contest Participation Award, IITP, Korea <span class="year">(Nov. 2022)</span></span>
-      </div>
-      <div class="list-item">
-        <span class="list-bullet">◆</span>
-        <span class="list-text">Capstone Design Contest Excellence Award, Kookmin University, Korea <span class="year">(Jun. 2022)</span></span>
-      </div>
-      <div class="list-item">
-        <span class="list-bullet">◆</span>
-        <span class="list-text">HAICON 2021 Special Prize, National Intelligence Service &amp; National Security Research Institute, Korea <span class="year">(Nov. 2021)</span></span>
-      </div>
-      <div class="list-item">
-        <span class="list-bullet">◆</span>
-        <span class="list-text">HAICON 2021 Grand Prize, National Intelligence Service &amp; National Security Research Institute, Korea <span class="year">(Nov. 2021)</span></span>
-      </div>
-      <div class="list-item">
-        <span class="list-bullet">◆</span>
-        <span class="list-text">National Science &amp; Technology Scholarship, KOSAF, Korea <span class="year">(Jan. 2021 ~ Dec. 2022)</span></span>
-      </div>
-      <div class="list-item">
-        <span class="list-bullet">◆</span>
-        <span class="list-text">S&amp;T Scholarship, S&amp;T Foundation, Korea <span class="year">(Mar. 2021 ~ Dec. 2021)</span></span>
-      </div>
-      <div class="list-item">
-        <span class="list-bullet">◆</span>
-        <span class="list-text">Academic Excellence Scholarship, Kookmin University, Korea <span class="year">(Sep. 2017 ~ Dec. 2020)</span></span>
-      </div>
+  <!-- Honors & Challenges (two columns) -->
+  <section id="honors">
+    <p class="section-label">Honors &amp; Awards</p>
+    <div class="list-items">
+
+          <div class="list-item">
+            <span class="list-item-year">Sep 2025 –</span>
+            <span class="list-item-title">Samsung Electronics Ph.D. Student Sponsorship Program</span>
+          </div>
+
+          <div class="list-item">
+            <span class="list-item-year">Nov 2022</span>
+            <span class="list-item-title">Software University AI Contest Participation Award — IITP</span>
+          </div>
+
+          <div class="list-item">
+            <span class="list-item-year">Jun 2022</span>
+            <span class="list-item-title">Capstone Design Contest Excellence Award — Kookmin University</span>
+          </div>
+
+          <div class="list-item">
+            <span class="list-item-year">Nov 2021</span>
+            <span class="list-item-title">HAICON 2021 Special Prize &amp; Grand Prize — NIS &amp; NSR</span>
+          </div>
+
+          <div class="list-item">
+            <span class="list-item-year">2021 – 2022</span>
+            <span class="list-item-title">National Science &amp; Technology Scholarship — KOSAF</span>
+          </div>
+
+          <div class="list-item">
+            <span class="list-item-year">2021</span>
+            <span class="list-item-title">S&amp;T Scholarship — S&amp;T Foundation</span>
+          </div>
+
+          <div class="list-item">
+            <span class="list-item-year">2017 – 2020</span>
+            <span class="list-item-title">Academic Excellence Scholarship — Kookmin University</span>
+          </div>
+
     </div>
   </section>
 
-  <!-- ── Challenges ── -->
-  <section>
-    <span id="challenges" class="section-anchor"></span>
-    <div class="section-header">
-      <h2 class="section-title">Challenges</h2>
-    </div>
-    <div class="list-section">
+  <section id="competitions">
+    <p class="section-label">Competitions</p>
+    <div class="list-items">
+
       <div class="list-item">
-        <span class="list-bullet">◆</span>
-        <span class="list-text">MEDIQA-SYNUR Observation Extraction from Nurse Dictations @ ClinicalNLP 2026 — <strong>5th place</strong></span>
+        <span class="list-item-year">2026</span>
+        <span class="list-item-title">MEDIQA-SYNUR @ ClinicalNLP 2026 — 5th place</span>
       </div>
+
       <div class="list-item">
-        <span class="list-bullet">◆</span>
-        <span class="list-text">2023 Samsung AI Challenge: Camera-Invariant Domain Adaptation — <strong>11th place</strong>, Samsung Advanced Institute of Technology</span>
+        <span class="list-item-year">2023</span>
+        <span class="list-item-title">Samsung AI Challenge: Camera-Invariant Domain Adaptation — 11th place</span>
       </div>
+
       <div class="list-item">
-        <span class="list-bullet">◆</span>
-        <span class="list-text">CVPR 2023 NICE Challenge: Zero-shot Image Captioning — <strong>6th place</strong>, LG AI Research</span>
+        <span class="list-item-year">2023</span>
+        <span class="list-item-title">CVPR 2023 NICE Challenge (Zero-shot Captioning) — 6th place</span>
       </div>
+
       <div class="list-item">
-        <span class="list-bullet">◆</span>
-        <span class="list-text">SW University AI Contest — <strong>17th place</strong>, IITP</span>
+        <span class="list-item-year">2022</span>
+        <span class="list-item-title">SW University AI Contest — 17th place</span>
       </div>
+
       <div class="list-item">
-        <span class="list-bullet">◆</span>
-        <span class="list-text">AI Yangjae Hub Artificial Intelligence Open-source Contest — <strong>22nd place</strong>, Yang-jae AI Hub</span>
+        <span class="list-item-year">2022</span>
+        <span class="list-item-title">AI Yangjae Hub Open-source Contest — 22nd place</span>
       </div>
+
       <div class="list-item">
-        <span class="list-bullet">◆</span>
-        <span class="list-text">HAICON 2021 — <strong>3rd place</strong>, National Intelligence Service &amp; National Security Research Institute</span>
+        <span class="list-item-year">2021</span>
+        <span class="list-item-title">HAICON 2021 — 3rd place</span>
       </div>
+
     </div>
   </section>
 
-  <!-- ── Teaching ── -->
-  <section>
-    <span id="teaching" class="section-anchor"></span>
-    <div class="section-header">
-      <h2 class="section-title">Teaching</h2>
-    </div>
-    <div class="list-section">
+  <!-- Teaching -->
+  <section id="teaching">
+    <p class="section-label">Teaching</p>
+    <div class="list-items">
+
       <div class="list-item">
-        <span class="list-bullet">◆</span>
-        <span class="list-text">Assistant Instructor, KDB-SNU AI Non-degree Course <span class="year">(2023, Seoul National University)</span></span>
+        <span class="list-item-year">2023 &nbsp;·&nbsp; Seoul National University</span>
+        <span class="list-item-title">Assistant Instructor — KDB-SNU AI Non-degree Course</span>
       </div>
+
       <div class="list-item">
-        <span class="list-bullet">◆</span>
-        <span class="list-text">Assistant Instructor, Computer Programming <span class="year">(2022, Kookmin University)</span></span>
+        <span class="list-item-year">2022 &nbsp;·&nbsp; Kookmin University</span>
+        <span class="list-item-title">Assistant Instructor — Computer Programming</span>
       </div>
+
       <div class="list-item">
-        <span class="list-bullet">◆</span>
-        <span class="list-text">Assistant Instructor, Software Project <span class="year">(2021, Kookmin University)</span></span>
+        <span class="list-item-year">2021 &nbsp;·&nbsp; Kookmin University</span>
+        <span class="list-item-title">Assistant Instructor — Software Project</span>
       </div>
+
       <div class="list-item">
-        <span class="list-bullet">◆</span>
-        <span class="list-text">Assistant Instructor, Numerical Analysis <span class="year">(2021, Kookmin University)</span></span>
+        <span class="list-item-year">2021 &nbsp;·&nbsp; Kookmin University</span>
+        <span class="list-item-title">Assistant Instructor — Numerical Analysis</span>
       </div>
+
       <div class="list-item">
-        <span class="list-bullet">◆</span>
-        <span class="list-text">Assistant Instructor, Computer Programming <span class="year">(2020, Kookmin University)</span></span>
+        <span class="list-item-year">2020 &nbsp;·&nbsp; Kookmin University</span>
+        <span class="list-item-title">Assistant Instructor — Computer Programming</span>
       </div>
+
     </div>
   </section>
 
-  <footer>
-    Based on a template by <a href="https://github.com/jonbarron/jonbarron_website">Jon Barron</a>. Redesigned for readability.
-  </footer>
+</main>
 
-</div>
+<footer>
+  <div class="page-wrapper">
+    <p>Based on a template originally by <a href="https://github.com/jonbarron/jonbarron_website" target="_blank">Jon Barron</a>.</p>
+  </div>
+</footer>
+
+<script>
+  const filters = document.querySelectorAll('.pub-filter');
+  const pubs = document.querySelectorAll('.pub-item');
+
+  filters.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filters.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      pubs.forEach(pub => {
+        const tags = (pub.dataset.tags || '').split(' ');
+        if (f === 'all' || tags.includes(f)) {
+          pub.classList.remove('hidden');
+        } else {
+          pub.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>
+
 </body>
 </html>

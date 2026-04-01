@@ -432,6 +432,54 @@
 
     /* Hidden pub items */
     .pub-item.hidden { display: none; }
+    /* Reviewer table */
+    .reviewer-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .reviewer-table tr {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .reviewer-table tr:last-child {
+      border-bottom: none;
+    }
+
+    .reviewer-type {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 14px 24px 14px 0;
+      vertical-align: top;
+      width: 90px;
+      white-space: nowrap;
+    }
+
+    .reviewer-venues {
+      padding: 14px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .reviewer-chip {
+      font-size: 13px;
+      color: var(--text-secondary);
+      padding: 3px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      white-space: nowrap;
+    }
+
+    .reviewer-chip span {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-left: 4px;
+    }
   </style>
 </head>
 <body>
@@ -445,6 +493,7 @@
       <a href="#honors">Honors</a>
       <a href="#competitions">Competitions</a>
       <a href="#teaching">Teaching</a>
+      <a href="#reviewer">Reviewer</a>
     </div>
   </div>
 </nav>
@@ -469,7 +518,7 @@
         <span class="interest-chip">Robustness</span>
         <span class="interest-chip">Interpretability</span>
         <span class="interest-chip">AI + Psychology</span>
-        <span class="interest-chip">AI + Medicine</span>
+        <span class="interest-chip">AI + Medical</span>
       </div>
 
       <div class="contact-links">
@@ -500,7 +549,7 @@
 
       <div class="news-item">
         <span class="news-date">Mar 2026</span>
-        <span class="news-text"><a href="https://arxiv.org/abs/2603.26046">One first-author paper</a> accepted at Clinical NLP @ LREC 2026.</span>
+        <span class="news-text"><a href="https://arxiv.org/abs/2503.13915">One first-author paper</a> accepted at Clinical NLP @ LREC 2026.</span>
       </div>
 
       <div class="news-item">
@@ -554,7 +603,7 @@
       <div class="pub-item" data-tags="aix">
         <span class="pub-badge">W3</span>
         <div>
-          <a href="https://arxiv.org/abs/2603.26046" class="pub-title" target="_blank">Team MKC at MEDIQA-SYNUR 2026: Retrieval-Augmented Generation Based Nurse Observation Extraction</a>
+          <a href="https://arxiv.org/abs/2511.07842" class="pub-title" target="_blank">Team MKC at MEDIQA-SYNUR 2026: Retrieval-Augmented Generation Based Nurse Observation Extraction</a>
           <p class="pub-authors"><span class="me">Kyomin Hwang</span>, Nojun Kwak</p>
           <p class="pub-venue">Clinical NLP @ LREC, 2026</p>
           <div class="pub-tags"><span class="tag tag-aix">AI + Medical</span></div>
@@ -564,7 +613,7 @@
       <div class="pub-item" data-tags="aix">
         <span class="pub-badge">C4</span>
         <div>
-          <a href="https://kyominhwang.github.io/" class="pub-title" target="_blank">Modeling Persuasion Knowledge Activation through LLM-Based Simulation</a>
+          <a href="https://arxiv.org/abs/2511.07842" class="pub-title" target="_blank">Modeling Persuasion Knowledge Activation through LLM-Based Simulation</a>
           <p class="pub-authors">Eunjin Anna Kim, Esther Thorson, <span class="me">Kyomin Hwang</span>, Hyeonjin Kim, Nojun Kwak</p>
           <p class="pub-venue">ICA, 2026</p>
           <div class="pub-tags"><span class="tag tag-aix">AI + Advertisement</span></div>
@@ -775,6 +824,33 @@
       </div>
 
     </div>
+  </section>
+
+  <!-- Reviewer -->
+  <section id="reviewer">
+    <p class="section-label">Reviewer</p>
+    <table class="reviewer-table">
+      <tr>
+        <td class="reviewer-type">Conference</td>
+        <td>
+          <div class="reviewer-venues">
+            <span class="reviewer-chip">AAAI <span>2026</span></span>
+            <span class="reviewer-chip">ICML <span>2026</span></span>
+            <span class="reviewer-chip">LREC-ClinicalNLP <span>2026</span></span>
+            <span class="reviewer-chip">ECCV <span>2026</span></span>
+            <span class="reviewer-chip">NeurIPS <span>2026</span></span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="reviewer-type">Journal</td>
+        <td>
+          <div class="reviewer-venues">
+            <span class="reviewer-chip">TCSVT <span>2025</span></span>
+          </div>
+        </td>
+      </tr>
+    </table>
   </section>
 
 </main>

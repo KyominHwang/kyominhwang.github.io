@@ -265,6 +265,47 @@
       border-color: var(--accent);
     }
 
+    /* =====================================================
+       YEAR MARKERS — Chunking publications by year
+
+       Principles applied:
+       · Jakob's Law       — academic sites (Google Scholar,
+                             dblp) group publications by year;
+                             users expect this pattern.
+       · Gestalt Proximity — items under one year visually
+                             cohere as a single chunk.
+       · Miller's Law (7±2)— 14 papers split into 5 small
+                             chunks (5/4/3/1/1) is far easier
+                             to scan than a flat list of 14.
+       · Visual Hierarchy  — sub-level: lighter than the
+                             section title, heavier than body.
+       · Filter compatible — JS hides year markers whose
+                             publications are all filtered out.
+    ===================================================== */
+    .year-marker {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.005em;
+      margin: 26px 0 6px;
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    /* Subtle accent rule before the year — soft anchor without
+       competing with the section title's full underline. */
+    .year-marker::before {
+      content: '';
+      display: inline-block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--accent-mid);
+      border-radius: 1px;
+    }
+    .year-marker:first-child { margin-top: 4px; }
+
     /* Grid layout: [ID col] [content col]
        Gestalt Figure-Ground — ID lives in its own lane */
     .pub {
@@ -393,7 +434,7 @@
 
     /* =====================================================
        RESPONSIVE — Mobile Optimization
-       
+
        Principles applied:
        · Fitts's Law      — touch targets min 44px height
        · Gestalt Proximity — tighter grouping on small screens
@@ -455,6 +496,16 @@
       /* News: compress date column */
       .news-date { min-width: 52px; font-size: 11px; }
       .news-text { font-size: 13px; }
+
+      /* Year markers slightly tighter on mobile */
+      .year-marker {
+        font-size: 1rem;
+        margin: 22px 0 4px;
+        padding: 0 8px;
+        gap: 8px;
+      }
+      .year-marker::before { width: 16px; }
+      .year-marker:first-child { margin-top: 6px; }
 
       /* Publications: keep grid but tighten ID column */
       .pub {
@@ -519,6 +570,7 @@
       .pub-id { font-size: 10px; }
       .hero-name { font-size: 1.4rem; }
       .contacts a { padding: 9px 14px; font-size: 13px; }
+      .year-marker { font-size: 0.95rem; }
     }
   </style>
 </head>
@@ -660,6 +712,9 @@
 
     <div id="pubs">
 
+      <!-- ── 2026 ── -->
+      <h3 class="year-marker">2026</h3>
+
       <article class="pub" data-t="other">
         <span class="pub-id">C7</span>
         <div>
@@ -686,7 +741,7 @@
           <span class="pub-title">Knowledge Beyond Language: Bridging the Gap in Multilingual Machine Unlearning Evaluation</span>
           <div class="pub-authors"><span class="me">Kyomin Hwang*</span>, Hyeonjin Kim*, Sangyeon Cho, Nojun Kwak</div>
           <div class="pub-venue">ACL Main Track, 2026</div>
-          <div class="tags"><span class="tag t-resp">Responsibility</span><a class="paper-link" href="#">Paper ↗</a></div>
+          <div class="tags"><span class="tag t-resp">Privacy</span><a class="paper-link" href="#">Paper ↗</a></div>
         </div>
       </article>
 
@@ -710,13 +765,16 @@
         </div>
       </article>
 
+      <!-- ── 2025 ── -->
+      <h3 class="year-marker">2025</h3>
+
       <article class="pub" data-t="resp">
         <span class="pub-id">P2</span>
         <div>
           <span class="pub-title">Alignment-Aware Quantization for LLM Safety</span>
           <div class="pub-authors">Sunghyun Wee, Hyeonjin Kim, Suyoung Kim, <span class="me">Kyomin Hwang</span>, Nojun Kwak</div>
           <div class="pub-venue">arXiv, 2025</div>
-          <div class="tags"><span class="tag t-resp">Responsibility</span><a class="paper-link" href="https://arxiv.org/abs/2511.07842" target="_blank">Paper ↗</a></div>
+          <div class="tags"><span class="tag t-resp">Privacy</span><a class="paper-link" href="https://arxiv.org/abs/2511.07842" target="_blank">Paper ↗</a></div>
         </div>
       </article>
 
@@ -726,7 +784,7 @@
           <span class="pub-title">Uncovering the Potential Risks in Unlearning: Danger of English-only Unlearning in Multilingual LLMs</span>
           <div class="pub-authors"><span class="me">Kyomin Hwang*</span>, Hyeonjin Kim*, Seungyeon Kim, Sunghyun Wee, Nojun Kwak</div>
           <div class="pub-venue">arXiv, 2025</div>
-          <div class="tags"><span class="tag t-resp">Responsibility</span><a class="paper-link" href="https://arxiv.org/abs/2510.23949" target="_blank">Paper ↗</a></div>
+          <div class="tags"><span class="tag t-resp">Privacy</span><a class="paper-link" href="https://arxiv.org/abs/2510.23949" target="_blank">Paper ↗</a></div>
         </div>
       </article>
 
@@ -750,6 +808,9 @@
         </div>
       </article>
 
+      <!-- ── 2024 ── -->
+      <h3 class="year-marker">2024</h3>
+
       <article class="pub" data-t="xai">
         <span class="pub-id">C2</span>
         <div>
@@ -766,7 +827,7 @@
           <span class="pub-title">Do not think about pink elephant!</span>
           <div class="pub-authors"><span class="me">Kyomin Hwang*</span>, Suyoung Kim*, JunHoo Lee*, Nojun Kwak</div>
           <div class="pub-venue">Responsible Generative AI Workshop (ReGenAI) @ CVPR, 2024</div>
-          <div class="tags"><span class="tag t-resp">Responsibility</span><a class="paper-link" href="https://arxiv.org/abs/2404.15154" target="_blank">Paper ↗</a></div>
+          <div class="tags"><span class="tag t-resp">Privacy</span><a class="paper-link" href="https://arxiv.org/abs/2404.15154" target="_blank">Paper ↗</a></div>
         </div>
       </article>
 
@@ -780,6 +841,9 @@
         </div>
       </article>
 
+      <!-- ── 2023 ── -->
+      <h3 class="year-marker">2023</h3>
+
       <article class="pub" data-t="other">
         <span class="pub-id">W1</span>
         <div>
@@ -789,6 +853,9 @@
           <div class="tags"><span class="tag t-other">Multi-modal</span><a class="paper-link" href="https://arxiv.org/abs/2309.01961" target="_blank">Paper ↗</a></div>
         </div>
       </article>
+
+      <!-- ── 2021 ── -->
+      <h3 class="year-marker">2021</h3>
 
       <article class="pub" data-t="other">
         <span class="pub-id">C1</span>
@@ -877,6 +944,12 @@
   /* ── PUBLICATION FILTER ──────────────────────────────────
      Hick's Law: narrowing the visible set reduces the time
      and cognitive effort to find a relevant paper.
+
+     Year-marker compatibility:
+     After filtering, walk each year marker and check whether
+     it has any visible publications below it (until the next
+     marker). If not, hide the marker — prevents orphan
+     "2024" headers with nothing under them.
   ──────────────────────────────────────────────────────── */
   document.querySelectorAll('.filt').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -884,8 +957,24 @@
       btn.classList.add('on');
 
       const f = btn.dataset.f;
+
+      // 1. Filter publications
       document.querySelectorAll('#pubs .pub').forEach(pub => {
         pub.style.display = (f === 'all' || pub.dataset.t === f) ? '' : 'none';
+      });
+
+      // 2. Hide year markers whose publications are all hidden
+      document.querySelectorAll('#pubs .year-marker').forEach(marker => {
+        let next = marker.nextElementSibling;
+        let hasVisible = false;
+        while (next && !next.classList.contains('year-marker')) {
+          if (next.classList.contains('pub') && next.style.display !== 'none') {
+            hasVisible = true;
+            break;
+          }
+          next = next.nextElementSibling;
+        }
+        marker.style.display = hasVisible ? '' : 'none';
       });
     });
   });

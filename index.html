@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kyomin Hwang</title>
+  <meta name="author" content="Kyomin Hwang">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    /* =====================================================
+       DESIGN SYSTEM — CSS Variables
+       Theme: Seoul National University
+       Primary  : SNU Blue  #001871 (Pantone 2748 C)
+       Secondary: SNU Gold  (used sparingly as an accent)
+       Principle: Gestalt (Similarity) — consistent tokens
+       ensure all elements of the same type feel unified.
+    ===================================================== */
+    :root {
+      --bg:          #ffffff;   /* white base — bands provide the tint  */
+      --band:        #ecf0f9;   /* pale SNU-blue section band           */
+      --surface:     #ffffff;
+      --text:        #1b1f2a;
+      --text-2:      #4c5464;
+      --text-muted:  #8a90a0;
+
+      --accent:      #001871;   /* SNU Blue (Pantone 2748 C)            */
+      --accent-mid:  #2743a5;   /* readable link blue, same hue family  */
+      --accent-deep: #00114f;   /* pressed / darker state               */
+      --gold:        #a08c4d;   /* SNU Gold — decorative accents only   */
+      --gold-deep:   #77621f;   /* text-safe gold (AA on white)         */
+
+      --border:      #e1e5f0;
+      --hover:       #eef2fb;   /* pale SNU-blue tint for row hovers    */
+      --radius:      8px;
+      --max-w:       800px;
+
+      /* Tag palette — re-tuned to sit next to SNU Blue,
+         WCAG AA contrast on their backgrounds */
+      --tag-resp-bg:  #e8ecf8; --tag-resp-fg:  #1b2e7a;  /* Privacy          */
+      --tag-rob-bg:   #f6efda; --tag-rob-fg:   #6f5a17;  /* Robustness       */
+      --tag-xai-bg:   #e0f0f0; --tag-xai-fg:   #14555a;  /* Interpretability */
+      --tag-aix-bg:   #e4f2e6; --tag-aix-fg:   #1e5c33;  /* AI + X           */
+      --tag-other-bg: #eceef3; --tag-other-fg: #3d4757;  /* Other            */
+    }
+
+    /* =====================================================
+       BASE RESET
+    ===================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }   /* Fitts's Law: frictionless anchor jumps */
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.72;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent-mid); text-decoration: none; }
+    a:hover { text-decoration: underline; color: var(--accent); }
+    strong { font-weight: 600; }
+
+    ::selection { background: var(--accent); color: #fff; }
+
+    /* Quality floor: visible keyboard focus everywhere */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--accent-mid);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    /* =====================================================
+       LAYOUT WRAPPER
+    ===================================================== */
+    .page {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 96px 28px 72px;   /* top padding clears the fixed nav */
+    }
+
+    /* =====================================================
+       STICKY TOC — Hick's Law
+       Signature element: SNU Blue banner with white text —
+       the combination officially recommended by the SNU UI
+       guide ("SNU Blue 바탕 + White 텍스트"), finished with
+       a hairline of SNU Gold along its lower edge.
+    ===================================================== */
+    .toc {
+      position: fixed;   /* same pattern as the reference site's navbar */
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      margin: 0;
+      /* left padding aligns the first link with the content column:
+         (100vw − 800px)/2 + 28px, floored at 16px on narrow screens */
+      padding: 10px max(16px, calc((100vw - 800px) / 2 + 28px));
+      display: flex;
+      gap: 4px;
+      flex-wrap: nowrap;
+      background: rgba(0, 24, 113, 0.98);   /* SNU Blue */
+      border-bottom: 2px solid var(--gold); /* gold trim, like a ceremony banner */
+      box-shadow: 0 2px 14px rgba(0, 24, 113, 0.18);
+    }
+    .toc a {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.88);
+      padding: 4px 10px;
+      border-radius: 14px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .toc a:hover {
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
+      text-decoration: none;
+    }
+    .toc a:focus-visible { outline-color: #fff; }
+
+    /* =====================================================
+       HERO — Profile
+       F-Pattern: biography on the left, photo on right.
+       Gestalt Proximity: name, bio, and links are grouped.
+    ===================================================== */
+    .hero {
+      display: flex;
+      gap: 36px;
+      align-items: flex-start;
+      margin-bottom: 16px;   /* the news band below brings its own padding */
+    }
+    .hero-body { flex: 1; }
+
+    /* Visual Hierarchy: name is the largest element on the page */
+    .hero-name {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 2.25rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+    .hero-bio {
+      font-size: 14.5px;
+      color: var(--text);
+      margin-bottom: 11px;
+    }
+
+    /* Fitts's Law: pill buttons are larger touch targets than bare text links */
+    .contacts {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+    .contacts a {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 7px 16px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .contacts a:hover {
+      background: var(--accent-mid);
+      transform: translateY(-1px);
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .hero-photo { width: 155px; flex-shrink: 0; }
+    .hero-photo img {
+      width: 100%;
+      border-radius: 12px;
+      display: block;
+      border: 3px solid var(--band);
+      box-shadow: 0 6px 24px rgba(0, 24, 113, 0.14);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .hero-photo img:hover {
+      transform: scale(1.025);
+      box-shadow: 0 10px 32px rgba(0, 24, 113, 0.20);
+    }
+
+    /* =====================================================
+       SECTION CHROME
+       Visual Hierarchy: serif display titles with a short
+       two-tone bar (SNU Blue + Gold tail) — borrowed from
+       the reference site's accent-bar heading treatment.
+    ===================================================== */
+    .section {
+      margin-bottom: 0;
+      padding: 26px 0 30px;
+      scroll-margin-top: 64px;   /* fixed nav shouldn't cover headings */
+    }
+    /* Alternating full-bleed bands — pale SNU Blue, echoing the
+       reference site's white / pale-tint section rhythm.
+       nth-of-type keeps the alternation automatic even if sections
+       are later added or removed. The box-shadow + clip-path pair
+       stretches the tint to the full viewport width without
+       touching the HTML structure. */
+    .section:nth-of-type(even) { background: var(--band); }
+    @supports (clip-path: inset(0 -100vmax)) {
+      .section:nth-of-type(even) {
+        box-shadow: 0 0 0 100vmax var(--band);
+        clip-path: inset(0 -100vmax);
+      }
+    }
+    .section-title {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: var(--accent);
+      position: relative;
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 48px;
+      height: 3px;
+      border-radius: 2px;
+      background: linear-gradient(to right,
+        var(--accent) 0, var(--accent) 34px,
+        var(--gold) 34px, var(--gold) 48px);
+    }
+    .section-note {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12.5px;
+      font-weight: 400;
+      color: var(--text-muted);
+      font-style: normal;
+    }
+    .section-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: -12px;
+      margin-bottom: 16px;
+    }
+
+    /* =====================================================
+       NEWS — Progressive Disclosure
+       Only a viewport-capped slice is shown; users scroll
+       for more. Serial Position Effect: newest item first.
+    ===================================================== */
+    .news-scroll {
+      max-height: 260px;
+      overflow-y: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+    .news-scroll::-webkit-scrollbar { width: 4px; }
+    .news-scroll::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 2px;
+    }
+    .news-row {
+      display: flex;
+      gap: 18px;
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+      transition: background 0.12s;
+    }
+    .news-row:last-child { border-bottom: none; }
+    .news-row:hover { background: var(--hover); }
+    .news-date {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      white-space: nowrap;
+      min-width: 62px;
+      padding-top: 2px;
+    }
+    .news-text { font-size: 13.5px; line-height: 1.5; }
+
+    /* =====================================================
+       PUBLICATIONS
+       Von Restorff Effect: highlighted author name stands
+       out in SNU Blue against grey co-author text.
+       Gestalt Similarity: identical card treatment for all.
+       Hick's Law: filter bar cuts visible choice set fast.
+       Fitts's Law: dedicated "Paper" button is a clear,
+         tappable CTA rather than a vague full-title link.
+       Affordance: title = readable text; button = action.
+       Gestalt Figure-Ground: left ID column is visually
+         distinct metadata, not mixed into the content.
+    ===================================================== */
+    .pub-filters {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+    .filt {
+      padding: 5px 13px;
+      border-radius: 16px;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      font-size: 12.5px;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text-2);
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .filt:hover, .filt.on {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    /* =====================================================
+       YEAR MARKERS — Chunking publications by year
+       · Jakob's Law       — academic sites group pubs by year.
+       · Gestalt Proximity — items under one year cohere.
+       · Miller's Law (7±2)— small chunks scan faster.
+       · Accent            — the short rule before each year
+                             is SNU Gold: a quiet secondary
+                             color against the navy titles.
+    ===================================================== */
+    .year-marker {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.005em;
+      margin: 26px 0 6px;
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .year-marker::before {
+      content: '';
+      display: inline-block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--gold);
+      border-radius: 1px;
+    }
+    .year-marker:first-child { margin-top: 4px; }
+
+    /* Grid layout: [ID col] [content col]
+       Gestalt Figure-Ground — ID lives in its own lane */
+    .pub {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 10px;
+      padding: 14px 12px;
+      border-radius: var(--radius);
+      border: 1px solid transparent;
+      background: transparent;
+      margin-bottom: 2px;
+      transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+    }
+    .pub:hover {
+      background: var(--surface);
+      border-color: var(--border);
+      box-shadow: 0 2px 10px rgba(0, 24, 113, 0.07);
+    }
+
+    /* Publication ID — right-aligned, mono-weight, muted
+       Serial scanning: C5 → C4 → … → C1 is immediately legible */
+    .pub-id {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-align: right;
+      padding-top: 3px;
+      letter-spacing: 0.02em;
+      line-height: 1.4;
+    }
+
+    /* Title as plain text — Affordance: title is for reading,
+       not for clicking. Removes the "what does this link do?" ambiguity. */
+    .pub-title {
+      display: block;
+      font-weight: 600;
+      font-size: 14.5px;
+      color: var(--text);
+      line-height: 1.4;
+      margin-bottom: 5px;
+    }
+    .pub-authors { font-size: 13px; color: var(--text-2); margin-bottom: 3px; }
+
+    /* Von Restorff: SNU Blue breaks the grey author list */
+    .me { font-weight: 700; color: var(--accent); }
+
+    .pub-venue { font-size: 12.5px; color: var(--text-muted); font-style: italic; margin-bottom: 8px; }
+    .tags { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .tag {
+      display: inline-block;
+      border-radius: 5px;
+      padding: 2px 9px;
+      font-size: 11.5px;
+      font-weight: 500;
+    }
+    .t-resp  { background: var(--tag-resp-bg);  color: var(--tag-resp-fg);  }
+    .t-rob   { background: var(--tag-rob-bg);   color: var(--tag-rob-fg);   }
+    .t-xai   { background: var(--tag-xai-bg);   color: var(--tag-xai-fg);   }
+    .t-aix   { background: var(--tag-aix-bg);   color: var(--tag-aix-fg);   }
+    .t-other { background: var(--tag-other-bg); color: var(--tag-other-fg); }
+
+    /* Paper link button — Fitts's Law: explicit, tappable CTA
+       Affordance: icon + label makes purpose unambiguous */
+    .paper-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11.5px;
+      font-weight: 500;
+      padding: 2px 9px;
+      border-radius: 5px;
+      border: 1.5px solid var(--border);
+      color: var(--accent-mid);
+      background: transparent;
+      text-decoration: none;
+      transition: all 0.15s;
+      line-height: 1.6;
+    }
+    .paper-link:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      text-decoration: none;
+    }
+
+    /* =====================================================
+       LIST SECTIONS (Honors, Challenges, Teaching)
+       Gestalt Proximity: tight vertical grouping signals
+       these items belong together.
+       White Space: generous padding between items prevents
+       the "wall of text" effect.
+    ===================================================== */
+    .list-block { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
+    .list-row {
+      display: flex;
+      gap: 12px;
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      line-height: 1.55;
+      align-items: flex-start;
+      transition: background 0.12s;
+    }
+    .list-row:last-child { border-bottom: none; }
+    .list-row:hover { background: var(--hover); }
+    .bullet {
+      color: var(--gold-deep);
+      font-size: 11px;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+    /* Achievements read in gold — semantically apt, AA contrast */
+    .rank { font-weight: 600; color: var(--gold-deep); }
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+    footer {
+      text-align: right;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 8px;   /* sections above carry their own bottom padding */
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--text-muted); }
+
+    /* =====================================================
+       MOTION — respect user preference
+    ===================================================== */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+      .hero-photo img:hover { transform: none; }
+      .contacts a:hover { transform: none; }
+    }
+
+    /* =====================================================
+       RESPONSIVE — Mobile Optimization
+       · Fitts's Law      — touch targets min 44px height
+       · Gestalt Proximity — tighter grouping on small screens
+       · Miller's Law     — filter pills wrap cleanly
+       · Readability      — font-size never below 13px on mobile
+    ===================================================== */
+
+    /* ── Tablet (≤ 700px) ── */
+    @media (max-width: 700px) {
+      .page { padding: 76px 1rem 3rem; }
+
+      .toc {
+        margin: 0;
+        padding: 8px 1rem;
+        gap: 2px;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .toc::-webkit-scrollbar { display: none; }
+      .toc a { white-space: nowrap; }
+
+      .hero { gap: 24px; }
+      .hero-name { font-size: 1.8rem; }
+    }
+
+    /* ── Mobile (≤ 580px) ── */
+    @media (max-width: 580px) {
+      .page { padding: 74px 1rem 3rem; }
+
+      /* Hero: photo on top, centered */
+      .hero {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+      }
+      .hero-photo {
+        width: 96px;
+        flex-shrink: 0;
+      }
+      .hero-photo img { border-radius: 50%; } /* circular on mobile — warmer, less formal */
+      .hero-name  { font-size: 1.6rem; text-align: center; }
+      .hero-bio   { font-size: 14px; text-align: left; }
+
+      /* Contact links: full-width on mobile for easy tapping */
+      .contacts {
+        justify-content: center;
+        gap: 8px;
+      }
+      .contacts a {
+        padding: 10px 18px;  /* Fitts: min ~44px touch height */
+        font-size: 13.5px;
+      }
+
+      /* Sections: slightly tighter band padding */
+      .section { padding: 22px 0 26px; }
+
+      /* Section titles slightly smaller */
+      .section-title { font-size: 1.2rem; }
+
+      /* News: compress date column */
+      .news-date { min-width: 52px; font-size: 11px; }
+      .news-text { font-size: 13px; }
+
+      /* Year markers slightly tighter on mobile */
+      .year-marker {
+        font-size: 1rem;
+        margin: 22px 0 4px;
+        padding: 0 8px;
+        gap: 8px;
+      }
+      .year-marker::before { width: 16px; }
+      .year-marker:first-child { margin-top: 6px; }
+
+      /* Publications: keep grid but tighten ID column */
+      .pub {
+        grid-template-columns: 30px 1fr;
+        gap: 8px;
+        padding: 12px 8px;
+      }
+      .pub-id { font-size: 10.5px; padding-top: 2px; }
+      .pub-title { font-size: 13.5px; }
+      .pub-authors { font-size: 12px; }
+      .pub-venue { font-size: 11.5px; }
+
+      /* Filter buttons: larger touch area */
+      .filt {
+        padding: 7px 13px;   /* Fitts: closer to 44px height */
+        font-size: 12px;
+      }
+      .pub-filters { gap: 6px; }
+
+      /* Paper link button: taller touch target */
+      .paper-link {
+        padding: 5px 10px;
+        font-size: 11px;
+        min-height: 28px;
+      }
+
+      /* Tags: slightly smaller */
+      .tag { font-size: 10.5px; padding: 2px 7px; }
+
+      /* List rows: less padding, readable */
+      .list-row { padding: 9px 10px; font-size: 13px; }
+      .rank { font-size: 13px; }
+
+      /* Reviewer tags wrap comfortably */
+      .reviewer-section-inner { gap: 1rem; }
+
+      /* Fixed nav: horizontal scroll on mobile */
+      .toc {
+        margin: 0;
+        padding: 8px 1rem;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        justify-content: flex-start;
+      }
+      .toc::-webkit-scrollbar { display: none; }
+      .toc a {
+        white-space: nowrap;
+        padding: 5px 10px;
+        font-size: 12px;
+      }
+
+      /* Section sub-note */
+      .section-sub { font-size: 12px; }
+      .section-note { font-size: 11px; }
+    }
+
+    /* ── Very small screens (≤ 380px) ── */
+    @media (max-width: 380px) {
+      .pub { grid-template-columns: 26px 1fr; gap: 6px; }
+      .pub-id { font-size: 10px; }
+      .hero-name { font-size: 1.4rem; }
+      .contacts a { padding: 9px 14px; font-size: 13px; }
+      .year-marker { font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ── STICKY NAV ──────────────────────────────────────── -->
+  <!-- Hick's Law: 4 links vs. no navigation at all — just enough -->
+  <nav class="toc" aria-label="Page sections">
+    <a href="#news">News</a>
+    <a href="#publications">Publications</a>
+    <a href="#honors">Honors</a>
+    <a href="#challenges">Challenges</a>
+    <a href="#teaching">Teaching</a>
+    <a href="#reviewer">Reviewer</a>
+  </nav>
+
+  <!-- ── HERO ───────────────────────────────────────────── -->
+  <section class="hero" aria-label="Profile">
+    <div class="hero-body">
+      <h1 class="hero-name">Kyomin Hwang</h1>
+
+      <p class="hero-bio">
+        I am a Ph.D. student at <a href="https://en.snu.ac.kr">Seoul National University</a>,
+        researching deep learning under the supervision of Professor
+        <a href="http://mipal.snu.ac.kr/index.php/Nojun_Kwak">Nojun Kwak</a>.
+        Previously, I earned my bachelor's degree in Computer Science from
+        <a href="https://www.kookmin.ac.kr/user/index.do">Kookmin University</a>.
+      </p>
+
+      <p class="hero-bio">
+        I am interested in advancing <strong>Trustworthy AI</strong>, with a particular focus on
+        privacy, robustness, and interpretability. I also actively explore interdisciplinary
+        applications bridging AI with other sciences (e.g., AI&nbsp;+&nbsp;Psychology).
+      </p>
+
+      <!-- Fitts's Law: pill buttons larger & easier to tap than inline text links -->
+      <nav class="contacts" aria-label="Contact links">
+        <a href="mailto:kyomin98@snu.ac.kr">✉&nbsp; Email</a>
+        <a href="https://scholar.google.com/citations?user=k4TQ414AAAAJ&hl=en">Google Scholar</a>
+        <a href="https://github.com/KyominHwang/">GitHub</a>
+      </nav>
+    </div>
+
+    <div class="hero-photo">
+      <a href="image/profile.png" aria-label="Profile photo (larger)">
+        <img src="image/profile.png" alt="Kyomin Hwang">
+      </a>
+    </div>
+  </section>
+
+  <!-- ── RECENT NEWS ────────────────────────────────────── -->
+  <!-- Progressive Disclosure: capped height, scroll for older items -->
+  <section class="section" id="news">
+    <h2 class="section-title">Recent News</h2>
+    <div class="news-scroll" role="feed" aria-label="News items">
+
+      <div class="news-row">
+        <span class="news-date">07 / 2026</span>
+        <span class="news-text">
+        Received the Best Paper Award at <strong>ICORIA 2026</strong>.
+        </span>
+      </div>
+
+      <div class="news-row">
+        <span class="news-date">06 / 2026</span>
+        <span class="news-text">
+          <a href="#">One first-author paper</a>
+          accepted at <strong>ECCV 2026</strong>.
+        </span>
+      </div>
+
+      <div class="news-row">
+        <span class="news-date">05 / 2026</span>
+        <span class="news-text">
+          <a href="#">One first-author paper</a>
+          accepted at <strong>CLPsych Workshop @ ACL 2026, as an Oral Presentation</strong>.
+        </span>
+      </div>
+
+      <div class="news-row">
+        <span class="news-date">05 / 2026</span>
+        <span class="news-text">
+        I have been acknowledged as an Gold reviewer (Top 25%) for <strong>ICML 2026</strong>.
+        </span>
+      </div>
+
+      <div class="news-row">
+        <span class="news-date">04 / 2026</span>
+        <span class="news-text">
+          <a href="#">One first-author paper</a>
+          accepted at <strong>ACL 2026</strong>, Main Track.
+        </span>
+      </div>
+
+      <div class="news-row">
+        <span class="news-date">03 / 2026</span>
+        <span class="news-text">
+          <a href="https://arxiv.org/abs/2603.26046">One first-author paper</a>
+          accepted at <strong>Clinical NLP @ LREC 2026</strong>.
+        </span>
+      </div>
+
+      <div class="news-row">
+        <span class="news-date">02 / 2025</span>
+        <span class="news-text">
+          <a href="https://arxiv.org/abs/2503.13915">One first-author paper</a>
+          accepted at <strong>CVPR 2025</strong>.
+        </span>
+      </div>
+
+      <div class="news-row">
+        <span class="news-date">06 / 2024</span>
+        <span class="news-text">
+          Joining <strong>Naver Cloud</strong> (Document Understanding) as a research scientist intern.
+        </span>
+      </div>
+
+      <div class="news-row">
+        <span class="news-date">03 / 2024</span>
+        <span class="news-text">
+          <a href="https://arxiv.org/abs/2404.15154">One first-author paper</a>
+          accepted at <strong>ReGenAI Workshop @ CVPR 2024</strong>.
+        </span>
+      </div>
+
+      <div class="news-row">
+        <span class="news-date">01 / 2024</span>
+        <span class="news-text">
+          <a href="https://www.sciencedirect.com/science/article/abs/pii/S0952197623015208">One first-author paper</a>
+          accepted at <strong>Engineering Applications of Artificial Intelligence</strong>.
+        </span>
+      </div>
+
+      <div class="news-row">
+        <span class="news-date">12 / 2022</span>
+        <span class="news-text">
+          Won Participation Award at <strong>SW University AI Contest (IITP)</strong> as team leader.
+        </span>
+      </div>
+
+      <div class="news-row">
+        <span class="news-date">11 / 2021</span>
+        <span class="news-text">
+          Won <strong>Grand &amp; Special Prize at HAICON 2021</strong> (NIS, NSR) as team leader.
+        </span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── PUBLICATIONS ───────────────────────────────────── -->
+  <section class="section" id="publications">
+    <h2 class="section-title">
+      Publications
+      <span class="section-note">* equal contribution</span>
+    </h2>
+    <p class="section-sub">C = Conference &nbsp;·&nbsp; W = Workshop &nbsp;·&nbsp; J = Journal &nbsp;·&nbsp; P = Preprint</p>
+
+    <!-- Hick's Law: filters narrow the choice space instantly -->
+    <div class="pub-filters" role="group" aria-label="Filter publications">
+      <button class="filt on"  data-f="all">All</button>
+      <button class="filt"     data-f="resp">Privacy</button>
+      <button class="filt"     data-f="rob">Robustness</button>
+      <button class="filt"     data-f="xai">Interpretability</button>
+      <button class="filt"     data-f="aix">AI + X</button>
+      <button class="filt"     data-f="other">Other</button>
+    </div>
+
+    <div id="pubs">
+
+      <!-- ── 2026 ── -->
+      <h3 class="year-marker">2026</h3>
+
+      <article class="pub" data-t="resp">
+        <span class="pub-id">C8</span>
+        <div>
+          <span class="pub-title">Zero-Shot Quantization for Object Detectors using Off-the-Shelf Generative Models</span>
+          <div class="pub-authors">Hyunho Lee*, <span class="me">Kyomin Hwang*</span>, Hyeonjin Kim*, Suyoung Kim, Sunghyun Wee, Nojun Kwak</div>
+          <div class="pub-venue">ECCV, 2026</div>
+          <div class="tags"><span class="tag t-resp">Privacy</span><a class="paper-link" href="https://arxiv.org/abs/2606.31456">Paper ↗</a></div>
+        </div>
+      </article>
+
+      <article class="pub" data-t="aix">
+        <span class="pub-id">W4</span>
+        <div>
+          <span class="pub-title">Team MKC at CLPsych 2026: Capturing and Characterizing Mental Health Changes through Social Media Timeline Dynamics</span>
+          <div class="pub-authors"><span class="me">Kyomin Hwang*</span>, Hyeonjin Kim*, Hyunho Lee*, Nojun Kwak</div>
+          <div class="pub-venue">CLPsych @ ACL (Oral), 2026</div>
+          <div class="tags"><span class="tag t-aix">AI + Psychology</span><a class="paper-link" href="https://aclanthology.org/2026.clpsych-1.44/">Paper ↗</a></div>
+        </div>
+      </article>
+
+      <article class="pub" data-t="other">
+        <span class="pub-id">C7</span>
+        <div>
+          <span class="pub-title">ReSpinQuant: Efficient Layer-Wise LLM Quantization via Subspace Residual Rotation Approximation</span>
+          <div class="pub-authors">Suyoung Kim, Sunghyun Wee*, Hyeonjin Kim*, <span class="me">Kyomin Hwang*</span>, Hyunho Lee*, Nojun Kwak</div>
+          <div class="pub-venue">ICML, 2026</div>
+          <div class="tags"><span class="tag t-other">Quantization</span><a class="paper-link" href="https://arxiv.org/abs/2604.11080">Paper ↗</a></div>
+        </div>
+      </article>
+
+      <article class="pub" data-t="aix">
+        <span class="pub-id">C6</span>
+        <div>
+          <span class="pub-title">When Do Online Coupons Persuade? Experimental Evidence from Large-Scale Behavioral Data in Advertising</span>
+          <div class="pub-authors">Eunjin Anna Kim, <span class="me">Kyomin Hwang</span>, Hyeonjin Kim, Yun Kim, Junmo Koo, Nojun Kwak</div>
+          <div class="pub-venue">ICORIA, 2026</div>
+          <div class="tags"><span class="tag t-aix">AI + Advertisement</span><a class="paper-link" href="#">Paper ↗</a></div>
+        </div>
+      </article>
+
+      <article class="pub" data-t="resp">
+        <span class="pub-id">C5</span>
+        <div>
+          <span class="pub-title">Knowledge Beyond Language: Bridging the Gap in Multilingual Machine Unlearning Evaluation</span>
+          <div class="pub-authors"><span class="me">Kyomin Hwang*</span>, Hyeonjin Kim*, Sangyeon Cho, Nojun Kwak</div>
+          <div class="pub-venue">ACL Main Track, 2026</div>
+          <div class="tags"><span class="tag t-resp">Privacy</span><a class="paper-link" href="https://aclanthology.org/2026.acl-long.1105/">Paper ↗</a></div>
+        </div>
+      </article>
+
+      <article class="pub" data-t="aix">
+        <span class="pub-id">W3</span>
+        <div>
+          <span class="pub-title">Team MKC at MEDIQA-SYNUR 2026: Retrieval-Augmented Generation Based Nurse Observation Extraction</span>
+          <div class="pub-authors"><span class="me">Kyomin Hwang</span>, Nojun Kwak</div>
+          <div class="pub-venue">Clinical NLP @ LREC, 2026</div>
+          <div class="tags"><span class="tag t-aix">AI + Medical</span><a class="paper-link" href="https://arxiv.org/abs/2603.26046" target="_blank">Paper ↗</a></div>
+        </div>
+      </article>
+
+      <article class="pub" data-t="aix">
+        <span class="pub-id">C4</span>
+        <div>
+          <span class="pub-title">Modeling Persuasion Knowledge Activation through LLM-Based Simulation</span>
+          <div class="pub-authors">Eunjin Anna Kim, Esther Thorson, <span class="me">Kyomin Hwang</span>, Hyeonjin Kim, Nojun Kwak</div>
+          <div class="pub-venue">ICA, 2026</div>
+          <div class="tags"><span class="tag t-aix">AI + Advertisement</span><a class="paper-link" href="#">Paper ↗</a></div>
+        </div>
+      </article>
+
+      <!-- ── 2025 ── -->
+      <h3 class="year-marker">2025</h3>
+
+      <article class="pub" data-t="resp">
+        <span class="pub-id">P2</span>
+        <div>
+          <span class="pub-title">Alignment-Aware Quantization for LLM Safety</span>
+          <div class="pub-authors">Sunghyun Wee, Hyeonjin Kim, Suyoung Kim, <span class="me">Kyomin Hwang</span>, Nojun Kwak</div>
+          <div class="pub-venue">arXiv, 2025</div>
+          <div class="tags"><span class="tag t-resp">Privacy</span><a class="paper-link" href="https://arxiv.org/abs/2511.07842" target="_blank">Paper ↗</a></div>
+        </div>
+      </article>
+
+      <article class="pub" data-t="resp">
+        <span class="pub-id">P1</span>
+        <div>
+          <span class="pub-title">Uncovering the Potential Risks in Unlearning: Danger of English-only Unlearning in Multilingual LLMs</span>
+          <div class="pub-authors"><span class="me">Kyomin Hwang*</span>, Hyeonjin Kim*, Seungyeon Kim, Sunghyun Wee, Nojun Kwak</div>
+          <div class="pub-venue">arXiv, 2025</div>
+          <div class="tags"><span class="tag t-resp">Privacy</span><a class="paper-link" href="https://arxiv.org/abs/2510.23949" target="_blank">Paper ↗</a></div>
+        </div>
+      </article>
+
+      <article class="pub" data-t="rob">
+        <span class="pub-id">J2</span>
+        <div>
+          <span class="pub-title">Mitigating the Bias in the Model for Continual Test-Time Adaptation</span>
+          <div class="pub-authors">Inseop Chung, <span class="me">Kyomin Hwang</span>, Jayeon Yoo, Nojun Kwak</div>
+          <div class="pub-venue">IEEE Access, 2025</div>
+          <div class="tags"><span class="tag t-rob">Robustness</span><a class="paper-link" href="https://ieeexplore.ieee.org/abstract/document/11141419" target="_blank">Paper ↗</a></div>
+        </div>
+      </article>
+
+      <article class="pub" data-t="rob">
+        <span class="pub-id">C3</span>
+        <div>
+          <span class="pub-title">Unlocking the Potential of Unlabeled Data in Semi-supervised Domain Generalization</span>
+          <div class="pub-authors">Dongkwan Lee*, <span class="me">Kyomin Hwang*</span>, Nojun Kwak</div>
+          <div class="pub-venue">CVPR, 2025</div>
+          <div class="tags"><span class="tag t-rob">Robustness</span><a class="paper-link" href="https://arxiv.org/abs/2503.13915" target="_blank">Paper ↗</a></div>
+        </div>
+      </article>
+
+      <!-- ── 2024 ── -->
+      <h3 class="year-marker">2024</h3>
+
+      <article class="pub" data-t="xai">
+        <span class="pub-id">C2</span>
+        <div>
+          <span class="pub-title">Deep Support Vectors</span>
+          <div class="pub-authors">JunHoo Lee, Hyunho Lee, <span class="me">Kyomin Hwang</span>, Nojun Kwak</div>
+          <div class="pub-venue">NeurIPS, 2024</div>
+          <div class="tags"><span class="tag t-xai">Interpretability</span><a class="paper-link" href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/d60e14c19cd6e0fc38556ad29ac8fbc9-Abstract-Conference.html" target="_blank">Paper ↗</a></div>
+        </div>
+      </article>
+
+      <article class="pub" data-t="resp">
+        <span class="pub-id">W2</span>
+        <div>
+          <span class="pub-title">Do not think about pink elephant!</span>
+          <div class="pub-authors"><span class="me">Kyomin Hwang*</span>, Suyoung Kim*, JunHoo Lee*, Nojun Kwak</div>
+          <div class="pub-venue">Responsible Generative AI Workshop (ReGenAI) @ CVPR, 2024</div>
+          <div class="tags"><span class="tag t-resp">Privacy</span><a class="paper-link" href="https://arxiv.org/abs/2404.15154" target="_blank">Paper ↗</a></div>
+        </div>
+      </article>
+
+      <article class="pub" data-t="other">
+        <span class="pub-id">J1</span>
+        <div>
+          <span class="pub-title">Fusing Bi-directional Global–Local Features for Single Image Super-Resolution</span>
+          <div class="pub-authors"><span class="me">Kyomin Hwang*</span>, Gangjoon Yoon*, Jinjoo Song, Sangmin Yoon</div>
+          <div class="pub-venue">Engineering Applications of Artificial Intelligence, 2024</div>
+          <div class="tags"><span class="tag t-other">Super Resolution</span><a class="paper-link" href="https://www.sciencedirect.com/science/article/abs/pii/S0952197623015208" target="_blank">Paper ↗</a></div>
+        </div>
+      </article>
+
+      <!-- ── 2023 ── -->
+      <h3 class="year-marker">2023</h3>
+
+      <article class="pub" data-t="other">
+        <span class="pub-id">W1</span>
+        <div>
+          <span class="pub-title">NICE: CVPR 2023 Challenge on Zero-shot Image Captioning</span>
+          <div class="pub-authors">Challenge Report (Team Contribution)</div>
+          <div class="pub-venue">NICE Workshop @ CVPR, 2023</div>
+          <div class="tags"><span class="tag t-other">Multi-modal</span><a class="paper-link" href="https://arxiv.org/abs/2309.01961" target="_blank">Paper ↗</a></div>
+        </div>
+      </article>
+
+      <!-- ── 2021 ── -->
+      <h3 class="year-marker">2021</h3>
+
+      <article class="pub" data-t="other">
+        <span class="pub-id">C1</span>
+        <div>
+          <span class="pub-title">A Study of CNN-Based Human Behavior Recognition with Channel State Information</span>
+          <div class="pub-authors"><span class="me">Kyomin Hwang</span>, Sang-Chul Kim</div>
+          <div class="pub-venue">ICOIN, 2021</div>
+          <div class="tags"><span class="tag t-other">Human Action Recognition</span><a class="paper-link" href="https://ieeexplore.ieee.org/abstract/document/9333879" target="_blank">Paper ↗</a></div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ── HONORS ─────────────────────────────────────────── -->
+  <section class="section" id="honors">
+    <h2 class="section-title">Honors &amp; Awards</h2>
+    <div class="list-block">
+      <div class="list-row"><span class="bullet">▸</span><span>Best Paper Award @ ICORIA 2026 (July. 2026 )</span></div>
+      <div class="list-row"><span class="bullet">▸</span><span>Gold Reviewer @ ICML 2026 (May. 2026 )</span></div>
+      <div class="list-row"><span class="bullet">▸</span><span>Software University AI Contest Participation Award, IITP, Korea (Nov. 2022)</span></div>
+      <div class="list-row"><span class="bullet">▸</span><span>Capstone Design Contest Excellence Award, Kookmin University, Korea (Jun. 2022)</span></div>
+      <div class="list-row"><span class="bullet">▸</span><span>HAICON2021 Special Prize, NIS &amp; NSR, Korea (Nov. 2021)</span></div>
+      <div class="list-row"><span class="bullet">▸</span><span>HAICON2021 Grand Prize, NIS &amp; NSR, Korea (Nov. 2021)</span></div>
+      <div class="list-row"><span class="bullet">▸</span><span>National Science &amp; Technology Scholarship, KOSAF, Korea (Jan. 2021 – Dec. 2022)</span></div>
+      <div class="list-row"><span class="bullet">▸</span><span>S&amp;T Scholarship, S&amp;T Foundation, Korea (Mar. 2021 – Dec. 2021)</span></div>
+      <div class="list-row"><span class="bullet">▸</span><span>Academic Excellence Scholarship, Kookmin University, Korea (Sep. 2017 – Dec. 2020)</span></div>
+    </div>
+  </section>
+
+  <!-- ── CHALLENGES ─────────────────────────────────────── -->
+  <!-- Von Restorff: rank number is bolded and accented — the most scannable part -->
+  <section class="section" id="challenges">
+    <h2 class="section-title">Challenges</h2>
+    <div class="list-block">
+      <div class="list-row"><span class="bullet">▸</span><span>MEDIQA-SYNUR Observation Extraction @ ClinicalNLP 2026 — <span class="rank">5th place</span></span></div>
+      <div class="list-row"><span class="bullet">▸</span><span>2023 Samsung AI Challenge: Camera-Invariant Domain Adaptation — <span class="rank">11th place</span>, Samsung AIT</span></div>
+      <div class="list-row"><span class="bullet">▸</span><span>Zero-shot Image Captioning Evaluation (CVPR 2023 NICE Challenge) — <span class="rank">6th place</span>, LG AI Research</span></div>
+      <div class="list-row"><span class="bullet">▸</span><span>SW University AI Contest — <span class="rank">17th place</span>, IITP</span></div>
+      <div class="list-row"><span class="bullet">▸</span><span>AI Yangjae Hub Open-source AI Contest — <span class="rank">22nd place</span>, Yang-jae AI Hub</span></div>
+      <div class="list-row"><span class="bullet">▸</span><span>HAICON 2021 — <span class="rank">3rd place</span>, NIS &amp; NSR</span></div>
+    </div>
+  </section>
+
+  <!-- ── TEACHING ────────────────────────────────────────── -->
+  <section class="section" id="teaching">
+    <h2 class="section-title">Teaching</h2>
+    <div class="list-block">
+      <div class="list-row"><span class="bullet">▸</span><span>Assistant Instructor, KDB-SNU AI Non-degree Course, 2023 — Seoul National University</span></div>
+      <div class="list-row"><span class="bullet">▸</span><span>Assistant Instructor, Computer Programming, 2022 — Kookmin University</span></div>
+      <div class="list-row"><span class="bullet">▸</span><span>Assistant Instructor, Software Project, 2021 — Kookmin University</span></div>
+      <div class="list-row"><span class="bullet">▸</span><span>Assistant Instructor, Numerical Analysis, 2021 — Kookmin University</span></div>
+      <div class="list-row"><span class="bullet">▸</span><span>Assistant Instructor, Computer Programming, 2020 — Kookmin University</span></div>
+    </div>
+  </section>
+
+  <!-- ── REVIEWER ───────────────────────────────────────── -->
+  <section class="section" id="reviewer">
+    <h2 class="section-title">Reviewer</h2>
+    <div class="list-block">
+      <div class="list-row" style="flex-direction: column; gap: 8px;">
+        <div style="font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.06em; color:var(--text-muted);">Conference</div>
+        <div style="display:flex; flex-wrap:wrap; gap:6px;">
+          <span style="background:var(--bg); border:1px solid var(--border); border-radius:5px; padding:3px 10px; font-size:13px; color:var(--text-2);">AAAI 2027</span>
+          <span style="background:var(--bg); border:1px solid var(--border); border-radius:5px; padding:3px 10px; font-size:13px; color:var(--text-2);">AAAI 2026</span>
+          <span style="background:var(--bg); border:1px solid var(--border); border-radius:5px; padding:3px 10px; font-size:13px; color:var(--text-2);">ICML 2026</span>
+          <span style="background:var(--bg); border:1px solid var(--border); border-radius:5px; padding:3px 10px; font-size:13px; color:var(--text-2);">LREC-ClinicalNLP 2026</span>
+          <span style="background:var(--bg); border:1px solid var(--border); border-radius:5px; padding:3px 10px; font-size:13px; color:var(--text-2);">ECCV 2026</span>
+          <span style="background:var(--bg); border:1px solid var(--border); border-radius:5px; padding:3px 10px; font-size:13px; color:var(--text-2);">NeurIPS 2026</span>
+          <span style="background:var(--bg); border:1px solid var(--border); border-radius:5px; padding:3px 10px; font-size:13px; color:var(--text-2);">ACL-CLPsych 2026</span>
+        </div>
+      </div>
+      <div class="list-row" style="flex-direction: column; gap: 8px;">
+        <div style="font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.06em; color:var(--text-muted);">Journal</div>
+        <div style="display:flex; flex-wrap:wrap; gap:6px;">
+          <span style="background:var(--bg); border:1px solid var(--border); border-radius:5px; padding:3px 10px; font-size:13px; color:var(--text-2);">TCSVT 2025</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Based on a template by <a href="https://github.com/jonbarron/jonbarron_website">Jon Barron</a>.
+  </footer>
+
+</div><!-- /page -->
+
+<script>
+  /* ── PUBLICATION FILTER ──────────────────────────────────
+     Hick's Law: narrowing the visible set reduces the time
+     and cognitive effort to find a relevant paper.
+
+     Year-marker compatibility:
+     After filtering, walk each year marker and check whether
+     it has any visible publications below it (until the next
+     marker). If not, hide the marker — prevents orphan
+     "2024" headers with nothing under them.
+  ──────────────────────────────────────────────────────── */
+  document.querySelectorAll('.filt').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filt').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+
+      const f = btn.dataset.f;
+
+      // 1. Filter publications
+      document.querySelectorAll('#pubs .pub').forEach(pub => {
+        pub.style.display = (f === 'all' || pub.dataset.t === f) ? '' : 'none';
+      });
+
+      // 2. Hide year markers whose publications are all hidden
+      document.querySelectorAll('#pubs .year-marker').forEach(marker => {
+        let next = marker.nextElementSibling;
+        let hasVisible = false;
+        while (next && !next.classList.contains('year-marker')) {
+          if (next.classList.contains('pub') && next.style.display !== 'none') {
+            hasVisible = true;
+            break;
+          }
+          next = next.nextElementSibling;
+        }
+        marker.style.display = hasVisible ? '' : 'none';
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
